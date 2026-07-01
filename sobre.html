@@ -49,6 +49,7 @@
             background-color: #007bff;
             /* Um azul forte e profissional */
         }
+
         /* --- CONFIGURAÇÕES GLOBAIS / PALETA DE CORES --- */
         :root {
             /* Cores Principais */
@@ -441,6 +442,33 @@
             font-weight: 500;
         }
 
+        /* --- RESPONSIVIDADE PARA SEÇÃO ESTATÍSTICAS --- */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 colunas em tablets */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                /* 1 coluna em celulares */
+                gap: 15px;
+            }
+
+            .stats-title {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+            }
+
+            .stat-card {
+                padding: 20px;
+                min-height: auto;
+                /* Permite que o card diminua a altura */
+            }
+        }
+
         /* Cores dos Cards (Gradiente harmônico de azul) */
         .bg-1 {
             background-color: #0c4a6e;
@@ -588,7 +616,7 @@
             height: 450px;
             /* Altura ideal e proporcional à imagem de referência */
             /* Imagem de fundo profissional de infraestrutura/pavimentação */
-            background-image: url('sobre-top.png');
+            background-image: url('sobre-topo.png');
             background-size: cover;
             background-position: center 35%;
             position: relative;
@@ -747,6 +775,7 @@
                 font-size: 1.8rem;
             }
         }
+
         /* --- CONFIGURAÇÃO DO FOOTER --- */
         .main-footer {
             background-color: #0f2a61;
@@ -948,7 +977,7 @@
         rel="noopener noreferrer" title="Visite nosso Instagram">
         <i class="fa-brands fa-instagram"></i>
     </a>
-   
+
 
     <section class="hero-banner">
         <div class="hero-content-box">
@@ -971,7 +1000,7 @@
             <div class="content-wrapper">
                 <div class="image-container">
                     <!-- Mantendo a referência solicitada -->
-                    <img src="pavii.png" alt="Serviços da Bresola Terraplanagem" class="responsive-img">
+                    <img src="capturas.png" alt="Serviços da Bresola Terraplanagem" class="responsive-img">
                 </div>
 
                 <div class="text-cta">
@@ -1176,7 +1205,7 @@
         </div>
     </footer>
 
-    
+
     <script defer>
         document.addEventListener('DOMContentLoaded', () => {
             const hamburgerBtn = document.getElementById('hamburgerBtn');
