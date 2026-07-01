@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados e Infraestrutura</title>
+    <!-- Link para o Font Awesome (Necessário para os ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Estilo Base Comum para Ambos os Botões */
+        .btn-float {
+            position: fixed;
+            right: 20px;
+            /* Distância do canto direito */
+            width: 60px;
+            height: 60px;
+            color: #ffffff;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 28px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Efeito ao passar o mouse */
+        .btn-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* CONFIGURAÇÃO ESPECÍFICA DO INSTAGRAM */
+        .instagram-float {
+            bottom: 20px;
+            /* Fica na base */
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        /* CONFIGURAÇÃO ESPECÍFICA DO TELEFONE */
+        .phone-float {
+            bottom: 95px;
+            /* Fica acima do Instagram (20px + 60px de altura + 15px de espaçamento) */
+            background-color: #007bff;
+            /* Um azul forte e profissional */
+        }
+    </style>
+    <style>
+        /* --- CONFIGURAÇÕES GLOBAIS / PALETA DE CORES --- */
+        :root {
+            /* Cores Principais */
+            --bg-dark: #070F19;
+            --accent-blue: #008DDA;
+            /* Azul de destaque principal */
+            --azul-premium: #112b4d;
+            /* Azul escuro corporativo */
+            --azul-suave: #193f65;
+
+            /* Cores de Fundo e Texto */
+            --bg-cinza: #f8f9fa;
+            /* Fundo de seções alternativas */
+            --text-main: #2d3748;
+            /* Cinza escuro para leitura confortável */
+            --text-muted: #64748b;
+            /* Cinza para subtítulos e breadcrumbs */
+            --white: #ffffff;
+
+            /* Animações e Bordas */
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .img-logo {
+            height: 80px;
+            /* Ajustado para um tamanho de logo mais elegante */
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-blue);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .btn-contato-premium {
+            background: var(--azul-premium);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-contato-premium:hover {
+            background: var(--accent-blue);
+            color: var(--white);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .hamburger .bar {
+            width: 28px;
+            height: 3px;
+            background-color: var(--bg-dark);
+            transition: var(--transition-smooth);
+        }
+
+        /* --- RESPONSIVIDADE NAVBAR --- */
+        @media (max-width: 992px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 40px;
+                padding: 40px;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+        }
+
+        /* ==========================================================================
+           SECÇÃO 2: GALERIA DE OPERAÇÕES INDUSTRIAS
+           ========================================================================== */
+        .gallery-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .gallery-header {
+            text-align: left;
+            max-width: 800px;
+        }
+
+        .gallery-tag {
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .gallery-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .gallery-subtitle {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .gallery-slider-wrapper {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .gallery-track {
+            display: flex;
+            width: 150%;
+            height: 700px;
+            cursor: grab;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+
+        .gallery-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-track:active {
+            cursor: grabbing;
+        }
+
+        .gallery-item {
+            flex: 0 0 33.333%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gallery-item:last-child {
+            border-right: none;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(1.05) contrast(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #1e293b;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
+
+        .gallery-nav-btn:hover {
+            background-color: #ffffff;
+            color: #2563eb;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-nav-btn.prev {
+            left: 16px;
+        }
+
+        .gallery-nav-btn.next {
+            right: 16px;
+        }
+
+        /* ==========================================================================
+           SECÇÃO 3: INFRAESTRUTURA E MÉTRICAS
+           ========================================================================== */
+        .infra-section {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            width: 100%;
+        }
+
+        .infra-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+        }
+
+        .infra-content {
+            flex: 0.8;
+            max-width: 700px;
+        }
+
+        .infra-tag {
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .infra-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.25;
+            margin-bottom: 24px;
+        }
+
+        .infra-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        .infra-image-wrapper {
+            flex: 1.2;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .infra-img {
+            width: 100%;
+            height: auto;
+            max-height: 270px;
+            object-fit: contain;
+        }
+
+        .infra-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            width: 100%;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0 16px;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background-color: #e2e8f0;
+        }
+
+        .stat-number {
+            font-size: 38px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           RESPONSIVIDADE COMPLETA
+           ========================================================================== */
+        @media (max-width: 960px) {
+            .infra-main {
+                flex-direction: column;
+                text-align: left;
+                gap: 40px;
+            }
+
+            .infra-content {
+                flex: 1;
+            }
+
+            .infra-image-wrapper {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .infra-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px 0;
+            }
+
+            .stat-item::after {
+                display: none !important;
+            }
+
+            .stat-item:nth-child(odd)::after {
+                display: block !important;
+            }
+
+            .gallery-item {
+                flex: 0 0 50%;
+            }
+
+            .gallery-track {
+                height: 300px;
+            }
+
+            .gallery-title {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 640px) {
+
+
+            .infra-title {
+                font-size: 26px;
+            }
+
+            .infra-stats-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .stat-item::after {
+                display: none !important;
+            }
+
+            .gallery-item {
+                flex: 0 0 85%;
+            }
+
+            .gallery-track {
+                height: 260px;
+            }
+
+            .gallery-nav-btn {
+                display: none;
+            }
+        }
+
+        /* --- CONTAINER PRINCIPAL DA MANCHETE --- */
+        /* --- CONTAINER PRINCIPAL DA MANCHETE --- */
+        .headline-container {
+            max-width: 850px;
+            margin: 0 auto;
+            /* ADICIONE ESTA LINHA */
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* Texto principal (Preto/Cinza Escuro) */
+        .headline-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        /* Destaque interno em azul (Máquinas Reais) */
+        .highlight-blue {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        /* --- WRAPPER DO TEXTO ROTATIVO (Frase Inferior) --- */
+        .rotating-box {
+            position: relative;
+            min-height: 36px;
+            /* Evita que o layout quebre ou mova o que estiver abaixo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rotating-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2563eb;
+            position: absolute;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            white-space: nowrap;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Classe ativa para a transição do JavaScript */
+        .rotating-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+            .headline-text {
+                font-size: 22px;
+            }
+
+            .rotating-text {
+                font-size: 16px;
+                white-space: normal;
+                /* Permite quebra de linha em telas pequenas */
+            }
+
+            .rotating-box {
+                min-height: 48px;
+            }
+        }
+
+        /* --- SEÇÃO DOS LOGOS --- */
+        .brands-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* Título superior sutil */
+        .brands-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            margin-top: 2%;
+        }
+
+        /* --- SLIDER CARROSSEL INFINITO (CSS PURE) --- */
+        .brands-slider {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        /* Gradientes laterais para efeito de desfoque/suavização profissional */
+        .brands-slider::before,
+        .brands-slider::after {
+            content: "";
+            height: 100%;
+            position: absolute;
+            width: 150px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .brands-slider::before {
+            left: 0;
+            top: 0;
+            background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .brands-slider::after {
+            right: 0;
+            top: 0;
+            background: linear-gradient(to left, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        /* Container que desliza as imagens */
+        .brands-track {
+            display: flex;
+            width: calc(240px * 12);
+            /* Largura total baseada no tamanho fixo dos itens duplicados */
+            animation: scroll-brands 25s linear infinite;
+        }
+
+        /* Pausa o movimento quando o usuário passa o mouse por cima */
+        .brands-slider:hover .brands-track {
+            animation-play-state: paused;
+        }
+
+        /* Item individual de logo */
+        .brand-item {
+            width: 240px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 30px;
+        }
+
+        .brand-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%) opacity(70%);
+            /* Deixa todos os logos uniformes e elegantes */
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Efeito de cor ao passar o mouse por cima do logo */
+        .brand-item:hover img {
+            filter: grayscale(0%) opacity(100%);
+            transform: scale(1.05);
+        }
+
+        /* --- ANIMAÇÃO DO LOOP INFINITO --- */
+        @keyframes scroll-brands {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-240px * 6));
+                /* Move exatamente metade do track para o loop perfeito */
+            }
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+
+            .brands-slider::before,
+            .brands-slider::after {
+                width: 60px;
+                /* Reduz a máscara lateral em telas menores */
+            }
+
+            .brand-item {
+                width: 180px;
+                padding: 0 20px;
+            }
+
+            @keyframes scroll-brands {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(calc(-180px * 6));
+                }
+            }
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .features-section {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+            /* ADICIONE ESTA LINHA PARA CENTRALIZAR */
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 3%;
+            /* Opcional: Adiciona respiro nas laterais em telas pequenas */
+            box-sizing: border-box;
+            /* Garante que o padding não quebre o layout */
+        }
+
+        /* Tag superior sutil */
+        .features-tag {
+            color: #d97706;
+            /* Tom âmbar profissional para engenharia pesada */
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* Título Principal */
+        .features-title {
+            font-size: 32px;
+            font-weight: 400;
+            color: #1e293b;
+            margin-bottom: 48px;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- GRID DOS CARDS --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            width: 100%;
+        }
+
+        /* Card individual */
+        .feature-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 32px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Container do Ícone */
+        .feature-icon-wrapper {
+            color: #132f7a;
+            /* Cor do ícone combinando com a tag */
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        /* Conteúdo do Card (Texto) */
+        .feature-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .feature-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .feature-card-desc {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 960px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                /* Vira uma coluna única em tablets/smartphones */
+                gap: 16px;
+            }
+
+            .features-title {
+                font-size: 26px;
+                margin-bottom: 36px;
+            }
+        }
+
+        /* --- HERO SECTION CONTAINER --- */
+        .hero-banner {
+            width: 100%;
+            height: 450px;
+            /* Altura ideal e proporcional à imagem de referência */
+            /* Imagem de fundo profissional de infraestrutura/pavimentação */
+            background-image: url('img/projetos/img.png');
+            background-size: cover;
+            background-position: center 35%;
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+
+        /* --- BLOCO LATERAL DE CONTEÚDO (Overlay Azul Escuro) --- */
+        .hero-content-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 45%;
+            /* Ocupa a lateral esquerda mantendo os engenheiros visíveis à direita */
+            height: 100%;
+            /* Fundo azul escuro com opacidade para efeito sofisticado de transparência */
+            background-color: rgba(15, 32, 67, 0.88);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5% 0 8%;
+            /* Alinhamento e recuo elegante */
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            /* Leve desfoque no fundo para destacar o texto */
+        }
+
+        /* --- TEXTOS --- */
+        .hero-title {
+            color: #ffffff;
+            font-size: 34px;
+            font-weight: 500;
+            line-height: 1.25;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-cta-btn:active {
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVIDADE COMPLETA --- */
+        @media (max-width: 1024px) {
+            .hero-content-box {
+                width: 55%;
+                padding: 0 4%;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                height: auto;
+                min-height: 400px;
+                display: flex;
+                margin-top: 25%;
+                flex-direction: column;
+            }
+
+            .hero-content-box {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 60px 24px;
+                background-color: rgba(15, 32, 67, 0.95);
+                /* Fundo mais denso para legibilidade em mobile */
+                backdrop-filter: none;
+            }
+
+            .hero-title {
+                font-size: 26px;
+                text-align: center;
+            }
+
+            .hero-cta-btn {
+                align-self: center;
+                /* Centraliza o botão no mobile */
+                width: 100%;
+                text-align: center;
+                max-width: 300px;
+            }
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .blog-section {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        /* Título Central da Seção */
+        .blog-section-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 48px;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- GRID DE 3 COLUNAS --- */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            width: 100%;
+        }
+
+        /* Card de Artigo */
+        .blog-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Container da Imagem com Texto Overlay Opcional */
+        .blog-image-wrapper {
+            width: 100%;
+            height: 210px;
+            position: relative;
+            background-color: #1e3a8a;
+            /* Fallback azul escuro */
+        }
+
+        .blog-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Overlay azul característico da referência nas capas */
+        .blog-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(29, 78, 216, 0.85) 0%, rgba(30, 58, 138, 0.4) 100%);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .overlay-logo {
+            font-size: 11px;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .overlay-text {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        /* Corpo do Texto do Card */
+        .blog-card-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Categoria/Tag de Texto Superior */
+        .blog-card-tag {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: capitalize;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        /* Título do Post */
+        .blog-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        /* Prévia do Texto (Excerpt) */
+        .blog-card-excerpt {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        /* Link "Leia mais" com seta */
+        .blog-card-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s ease;
+        }
+
+        .blog-card-link:hover {
+            color: #1d4ed8;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 960px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .blog-section-title {
+                font-size: 24px;
+                margin-bottom: 32px;
+            }
+        }
+
+        /* --- CONFIGURAÇÃO DO FOOTER --- */
+        .main-footer {
+            background-color: #0f2a61;
+            color: #FFFFFF;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-top {
+            padding: 70px 0 50px 0;
+        }
+
+        /* Grid Flexbox das colunas */
+        .footer-top .footer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .brand-column {
+            flex: 1.4;
+            /* Ajustado levemente para acomodar melhor o texto institucional */
+        }
+
+        .footer-logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+
+        .footer-about {
+            font-size: 14px;
+            color: #A0AEC0;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 25px;
+            margin-top: 0;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Detalhe da linha em baixo do título */
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 35px;
+            height: 2px;
+            background-color: #1d5bd6;
+        }
+
+        /* Listas de Links e Contatos */
+        .footer-links,
+        .footer-contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links li {
+            color: #A0AEC0;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links i {
+            font-size: 10px;
+            color: #1d5bd6;
+        }
+
+        /* Contatos com ícones */
+        .footer-contact-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: #A0AEC0;
+            line-height: 1.5;
+        }
+
+        .footer-contact-list li i {
+            color: #1d5bd6;
+            margin-top: 3px;
+            font-size: 15px;
+            width: 15px;
+            text-align: center;
+        }
+
+        .footer-contact-list a {
+            color: #A0AEC0;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .footer-contact-list a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Redes Sociais */
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #FFFFFF;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            background-color: #1d5bd6;
+            transform: translateY(-3px);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+            .footer-top .footer-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-top .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="#"><img src="img/log.png" alt="PAVTERRA" class="img-logo"></a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="contato.html" class="nav-link">Contato</a>
+                <a href="projetos.html" class="nav-link">Projetos</a>
+                <a href="sobre.html" class="nav-link">Sobre</a>
+                <a href="diferenciais.html" class="nav-link">Diferenciais</a>
+                <a href="" class="btn-contato-premium">Contato<i class="fa-solid fa-arrow-right-long"></i></a>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+    <!-- Botão do Telefone (Substitua pelo seu número com DDD, apenas dígitos) -->
+    <a href="https://wa.me/5549988141775" class="btn-float phone-float" title="Ligar agora">
+        <i class="fa-solid fa-phone"></i>
+    </a>
+
+    <!-- Botão do Instagram (Substitua pelo seu usuário) -->
+    <a href="https://www.instagram.com/bresola_terraplanagem/" class="btn-float instagram-float" target="_blank"
+        rel="noopener noreferrer" title="Visite nosso Instagram">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+    <section class="hero-banner">
+        <div class="hero-content-box">
+            <h1 class="hero-title">
+                Construa com solidez.<br>
+                Pavimente com precisão.
+            </h1>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('ctaHero').addEventListener('click', (e) => {
+            // Exemplo de ação ao clicar: Rolar suavemente ou disparar evento de conversão
+            console.log('Botão de conversão do banner acionado.');
+        });
+    </script>
+
+    <section class="features-section">
+        <h2 class="features-title">Por que a Bresola é referência em infraestrutura?</h2>
+
+        <div class="features-grid">
+
+            <!-- Card 1 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+                <div class="feature-info">
+                    <h3 class="feature-card-title">Eficiência em Movimentação</h3>
+                    <p class="feature-card-desc">Cálculo de volume exato via topografia digital.
+                        Redução de custos e desperdícios com planejamento logístico inteligente em terraplanagem.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                </div>
+                <div class="feature-info">
+                    <h3 class="feature-card-title">Tecnologia de Precisão</h3>
+                    <p class="feature-card-desc">Maquinário moderno com suporte a sistemas de monitoramento.
+                        Garantimos o nivelamento ideal do subleito até a pavimentação asfáltica final.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrapper">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                </div>
+                <div class="feature-info">
+                    <h3 class="feature-card-title">Qualidade e Conformidade</h3>
+                    <p class="feature-card-desc">Mais de 40 anos de confiança. Rigoroso controle
+                        tecnológico em todas as etapas, garantindo durabilidade e aderência às normas técnicas vigentes.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="brands-section">
+        <h2 class="brands-title">Grandes Clientes</h2>
+
+        <div class="brands-slider">
+            <div class="brands-track">
+
+                <div class="brand-item">
+                    <img src="https://camposnovos.sc.gov.br/uploads/sites/405/2022/08/cropped-cropped-Bandeira.png"
+                        alt="Logo Construtora Alfa">
+                </div>
+                <div class="brand-item">
+                    <img src="https://celsoramos.sc.gov.br/uploads/sites/408/2021/12/celsoramos.png"
+                        alt="Logo Rodovias do Brasil">
+                </div>
+                <div class="brand-item">
+                    <img src="https://camposnovos.sc.gov.br/uploads/sites/405/2022/08/cropped-cropped-Bandeira.png"
+                        alt="Logo Construtora Alfa">
+                </div>
+                <div class="brand-item">
+                    <img src="https://celsoramos.sc.gov.br/uploads/sites/408/2021/12/celsoramos.png"
+                        alt="Logo Rodovias do Brasil">
+                </div>
+                <div class="brand-item">
+                    <img src="https://camposnovos.sc.gov.br/uploads/sites/405/2022/08/cropped-cropped-Bandeira.png"
+                        alt="Logo Construtora Alfa">
+                </div>
+                <div class="brand-item">
+                    <img src="https://celsoramos.sc.gov.br/uploads/sites/408/2021/12/celsoramos.png"
+                        alt="Logo Rodovias do Brasil">
+                </div>
+
+                <div class="brand-item">
+                    <img src="https://camposnovos.sc.gov.br/uploads/sites/405/2022/08/cropped-cropped-Bandeira.png"
+                        alt="Logo Construtora Alfa">
+                </div>
+                <div class="brand-item">
+                    <img src="https://celsoramos.sc.gov.br/uploads/sites/408/2021/12/celsoramos.png"
+                        alt="Logo Rodovias do Brasil">
+                </div>
+                <div class="brand-item">
+                    <img src="https://camposnovos.sc.gov.br/uploads/sites/405/2022/08/cropped-cropped-Bandeira.png"
+                        alt="Logo Construtora Alfa">
+                </div>
+                <div class="brand-item">
+                    <img src="https://celsoramos.sc.gov.br/uploads/sites/408/2021/12/celsoramos.png"
+                        alt="Logo Rodovias do Brasil">
+                </div>
+                <div class="brand-item">
+                    <img src="https://camposnovos.sc.gov.br/uploads/sites/405/2022/08/cropped-cropped-Bandeira.png"
+                        alt="Logo Construtora Alfa">
+                </div>
+                <div class="brand-item">
+                    <img src="https://celsoramos.sc.gov.br/uploads/sites/408/2021/12/celsoramos.png"
+                        alt="Logo Rodovias do Brasil">
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <section class="infra-section">
+            <div class="infra-main">
+                <div class="infra-content">
+                    <span class="infra-tag">Tradição e Qualidade</span>
+                    <h2 class="infra-title">Infraestrutura sólida, de Campos Novos para o Brasil</h2>
+                    <p class="infra-text">
+                        Com mais de 40 anos de história, a Bresola combina experiência de gerações
+                        com tecnologia de ponta em terraplanagem e pavimentação, garantindo
+                        solidez e durabilidade em cada projeto executado.
+                    </p>
+                    <p class="infra-text">
+                        Nossa metodologia une equipamentos de alto desempenho a um rigoroso
+                        controle técnico, assegurando que cada obra — do subleito ao acabamento
+                        asfáltico — siga os mais altos padrões de engenharia.
+                    </p>
+                </div>
+
+                <div class="infra-image-wrapper">
+                    <img src="img/Captura de tela 2026-06-30 214553.png" alt="Obra de Pavimentação Bresola"
+                        class="infra-img">
+                </div>
+            </div>
+
+            <div class="infra-stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">+40 anos</div>
+                    <div class="stat-label">de história e experiência</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">+1000</div>
+                    <div class="stat-label">obras entregues com sucesso</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Campos Novos</div>
+                    <div class="stat-label">base de atuação e compromisso com o sul</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Alta</div>
+                    <div class="stat-label">precisão em terraplanagem</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Qualidade</div>
+                    <div class="stat-label">em pavimentação asfáltica</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="headline-container">
+        <h1 class="headline-text">
+            Projetos de engenharia exigem a solidez de quem conhece o terreno.
+            Unimos <span class="highlight-blue">tradição de quatro décadas</span>,
+            tecnologia de ponta e rigor técnico para entregar infraestruturas que duram.
+        </h1>
+
+        <div class="rotating-box">
+            <p class="rotating-text active">Bresola: 40 anos construindo o futuro de Campos Novos e região.</p>
+            <p class="rotating-text">Especialistas em terraplanagem, pavimentação e obras de infraestrutura.</p>
+            <p class="rotating-text">Soluções completas com o selo de qualidade Bresola de engenharia.</p>
+        </div>
+    </div>
+    <footer class="main-footer">
+        <div class="footer-top">
+            <div class="footer-container">
+
+                <!-- Coluna Sobre a Empresa -->
+                <div class="footer-column brand-column">
+                    <h3 class="footer-logo-text">Bresola</h3>
+                    <p class="footer-about">
+                        A Bresola Terraplanagem e Pavimentação é uma empresa tradicional com mais de 42 anos de
+                        experiência no mercado de infraestrutura rodoviária e urbana, atuando no setor privado e em
+                        obras públicas em SC.
+                    </p>
+                </div>
+
+                <!-- Coluna de Serviços -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Serviços e Atuação</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-chevron-right"></i> Obras de Terraplenagem</li>
+                        <li><i class="fa-solid fa-chevron-right"></i> Pavimentação Asfáltica</li>
+                        <li><i class="fa-solid fa-chevron-right"></i> Drenagem Pluvial</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Localização -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Onde Estamos</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>
+                                Rodovia Perimetral Lateral Esquerda BR 282, nº 499<br>
+                                Bairro Ernesto Zortea<br>
+                                Campos Novos - SC<br>
+                                CEP 89620-000
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Contato -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Fale Conosco</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+554935410685">(49) 3541-0685</a>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+5549988141775">(49) 98814-1775</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const navMenu = document.getElementById('navMenu');
+            const bars = hamburgerBtn.querySelectorAll('.bar');
+
+            function toggleMenu() {
+                const isActive = navMenu.classList.toggle('active');
+                bars[0].style.transform = isActive ? 'translateY(9px) rotate(45deg)' : 'none';
+                bars[1].style.opacity = isActive ? '0' : '1';
+                bars[2].style.transform = isActive ? 'translateY(-9px) rotate(-45deg)' : 'none';
+            }
+
+            hamburgerBtn.addEventListener('click', toggleMenu);
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) toggleMenu();
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const phrases = document.querySelectorAll(".rotating-text");
+            let currentIndex = 0;
+
+            setInterval(() => {
+                // Remove a classe ativa da frase atual (esconde)
+                phrases[currentIndex].classList.remove("active");
+
+                // Avança para o próximo índice (retorna ao 0 se chegar ao fim)
+                currentIndex = (currentIndex + 1) % phrases.length;
+
+                // Adiciona a classe ativa na nova frase (mostra com efeito)
+                phrases[currentIndex].classList.add("active");
+            }, 5000); // Executa rigorosamente a cada 5 segundos
+        });
+    </script>
+    <script>
+        const track = document.getElementById('galleryTrack');
+        const btnPrev = document.querySelector('.gallery-nav-btn.prev');
+        const btnNext = document.querySelector('.gallery-nav-btn.next');
+
+        btnNext.addEventListener('click', () => {
+            const itemWidth = track.querySelector('.gallery-item').clientWidth;
+            track.scrollBy({ left: itemWidth, behavior: 'smooth' });
+        });
+
+        btnPrev.addEventListener('click', () => {
+            const itemWidth = track.querySelector('.gallery-item').clientWidth;
+            track.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+        });
+
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        track.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
+        });
+
+        track.addEventListener('mouseleave', () => { isDown = false; });
+        track.addEventListener('mouseup', () => { isDown = false; });
+
+        track.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            track.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+
+</html>

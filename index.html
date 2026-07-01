@@ -1,0 +1,2239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAVTERRA | Engenharia de Infraestrutura Pesada</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link para o Font Awesome (Necessário para os ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Estilo Base Comum para Ambos os Botões */
+        .btn-float {
+            position: fixed;
+            right: 20px;
+            /* Distância do canto direito */
+            width: 60px;
+            height: 60px;
+            color: #ffffff;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 28px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Efeito ao passar o mouse */
+        .btn-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* CONFIGURAÇÃO ESPECÍFICA DO INSTAGRAM */
+        .instagram-float {
+            bottom: 20px;
+            /* Fica na base */
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        /* CONFIGURAÇÃO ESPECÍFICA DO TELEFONE */
+        .phone-float {
+            bottom: 95px;
+            /* Fica acima do Instagram (20px + 60px de altura + 15px de espaçamento) */
+            background-color: #007bff;
+            /* Um azul forte e profissional */
+        }
+
+        :root {
+            --bg-dark: #070F19;
+            --accent-blue: #1d5bd6;
+            --text-main: #1A202C;
+            --white: #112b4d;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: white;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .img-logo {
+            height: 80px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link {
+            color: #3c3c3c;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #008DDA;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-blue);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .btn-contato-premium {
+            background: #112b4d;
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-contato-premium:hover {
+            background: var(--bg-dark);
+            color: #FFFFFF;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .hamburger .bar {
+            width: 28px;
+            height: 3px;
+            background-color: var(--bg-dark);
+            transition: var(--transition-smooth);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(11, 56, 110, 0.452) 40%, rgba(25, 60, 105, 0.7) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            color: #FFFFFF;
+            max-width: 850px;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--accent-blue);
+            padding-left: 10px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 300;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            color: #FFFFFF;
+        }
+
+        .hero-title .text-highlight {
+            color: var(--accent-blue);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: #D1D5DB;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            max-width: 650px;
+            font-weight: 400;
+        }
+
+        .btn-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #092f7f;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 14px 30px;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(14, 41, 104, 0.62);
+            transition: var(--transition-smooth);
+            border: 2px solid transparent;
+        }
+
+        .btn-hero i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-hero:hover {
+            background: transparent;
+            border-color: #FFFFFF;
+            color: #FFFFFF;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-hero:hover i {
+            transform: translateX(5px);
+        }
+
+        .hero-bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, rgb(16, 45, 108) 0%, rgba(0, 141, 218, 0.2) 100%);
+            z-index: 4;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- CARROSSEL DE CLIENTES (CORRIGIDO PARA CELULAR) --- */
+        .clientes-section {
+            background-color: #F4F5F7;
+            padding: 60px 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .clientes-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .clientes-text {
+            flex: 0 0 280px;
+        }
+
+        .clientes-text h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #4a4a4a;
+            line-height: 1.3;
+        }
+
+        .clientes-carousel-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-arrow {
+            background: none;
+            border: none;
+            color: #B3B9C4;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 10px;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-arrow:hover {
+            color: var(--accent-blue);
+        }
+
+        .clientes-carousel {
+            width: 100%;
+            overflow: hidden;
+            /* TRAVA a rolagem nativa do celular para o JS assumir */
+            position: relative;
+        }
+
+        .carousel-track {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            width: max-content;
+            /* Transição suave usando transformações de hardware */
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 160px;
+            height: 60px;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .carousel-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+
+            /* Faz a imagem ficar cinza por padrão */
+            filter: grayscale(100%);
+
+            /* Deixa a transição de cor suave (opcional, mas altamente recomendado) */
+            transition: filter 0.3s ease;
+        }
+
+        /* Quando passar o mouse por cima do item do carrossel (ou da própria imagem) */
+        .carousel-item:hover img {
+            /* Remove o efeito cinza, voltando a cor original */
+            filter: grayscale(0%);
+        }
+
+        @media (max-width: 768px) {
+            .clientes-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+
+            .clientes-text {
+                flex: unset;
+                width: 100%;
+            }
+
+            .carousel-arrow {
+                display: none;
+                /* Setas somem no mobile, mas o autoplay continua */
+            }
+        }
+
+        /* --- RESPONSIVIDADE EM BLOCO --- */
+        @media (max-width: 992px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 40px;
+                padding: 40px;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu.active .nav-link {
+                color: #3b3b3b;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 15px;
+                margin-bottom: 30px;
+            }
+
+            .btn-hero {
+                width: 100%;
+                justify-content: center;
+                padding: 16px 24px;
+            }
+
+            .clientes-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+
+            .clientes-text {
+                flex: unset;
+                width: 100%;
+            }
+
+            .carousel-arrow {
+                display: none;
+            }
+        }
+    </style>
+
+    <style>
+        /* --- SEÇÃO SOBRE / PRODUTOS --- */
+        .sobre-section {
+            padding: 90px 0;
+            background-color: #FFFFFF;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Grid que divide Texto e Imagem */
+        .sobre-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* Conteúdo de Texto */
+        .sobre-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sobre-tag {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #122856;
+            text-transform: uppercase;
+        }
+
+        .sobre-title {
+            font-size: 36px;
+            font-weight: 400;
+            color: #070F19;
+            line-height: 1.25;
+            margin-bottom: 5px;
+        }
+
+        .sobre-text {
+            font-size: 16px;
+            color: #4A5568;
+            line-height: 1.6;
+        }
+
+        /* Botão Premium Estilizado */
+        .btn-sobre {
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #112b4d;
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 14px 28px;
+            font-weight: 400;
+            font-size: 14px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-sobre i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-sobre:hover {
+            background-color: #070F19;
+            box-shadow: 0 10px 20px rgba(7, 15, 25, 0.15);
+        }
+
+        .btn-sobre:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Bloco da Direita (Banner de Imagem) */
+        .sobre-media-wrapper {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Card com imagem de fundo (Pode trocar o link pela sua foto se preferir) */
+        .sobre-card-banner {
+            width: 100%;
+            height: 100%;
+            background: url('img/img-luz.jpeg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        /* Filtro escuro/azul por cima da foto idêntico ao da imagem image_cddb72.jpg */
+        .sobre-overlay-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 57, 93, 0.34) 0%, rgba(11, 42, 77, 0.594) 100%);
+            z-index: 1;
+        }
+
+        /* Conteúdo interno do banner direito */
+        .sobre-card-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #FFFFFF;
+            width: 100%;
+        }
+
+        .sobre-card-content h3 {
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        /* Destaque "BASE FORTE" azul com sombra sutil do modelo */
+        .badge-forte {
+            display: inline-block;
+            background-color: #142a68;
+            color: #FFFFFF;
+            font-size: 36px;
+            font-weight: 300;
+            padding: 6px 24px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- RESPONSIVIDADE COMPLETA (NOTEBOOK E CELULAR) --- */
+        @media (max-width: 992px) {
+            .sobre-grid {
+                grid-template-columns: 1fr;
+                /* Transforma em 1 coluna no celular/tablet */
+                gap: 40px;
+            }
+
+            .sobre-section {
+                padding: 60px 0;
+            }
+
+            .sobre-media-wrapper {
+                height: 380px;
+                /* Reduz ligeiramente a altura em telas menores */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sobre-title {
+                font-size: 28px;
+            }
+
+            .sobre-card-content h3 {
+                font-size: 22px;
+            }
+
+            .badge-forte {
+                font-size: 28px;
+                padding: 6px 16px;
+            }
+
+            .btn-sobre {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        /* Cabeçalho da Seção */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: #092f7f;
+            margin-bottom: 10px;
+            font-weight: 400;
+            margin-top: 4%;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: rgb(22, 60, 112)
+        }
+
+        /* Wrapper do Carrossel e Botões */
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .carousel-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: rgb(46, 46, 46);
+            cursor: pointer;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .carousel-btn:hover {
+            color: #092f7f;
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .carousel-btn.prev {
+            left: -40px;
+        }
+
+        .carousel-btn.next {
+            right: -40px;
+        }
+
+        /* Container dos Cards (Scroll) */
+        .products-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px 5px;
+            scrollbar-width: none;
+            /* Oculta a barra no Firefox */
+        }
+
+        .products-carousel::-webkit-scrollbar {
+            display: none;
+            /* Oculta a barra no Chrome/Safari */
+        }
+
+        /* Estilo do Card individual */
+        .product-card {
+            flex: 0 0 calc(25% - 15px);
+            /* 4 cards por linha em telas cheias */
+            min-width: 250px;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            color: #3d3d3d;
+            flex-direction: column;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .card-content p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            flex-grow: 1;
+            /* Garante alinhamento dos botões abaixo */
+        }
+
+        /* Link Saiba Mais */
+        .btn-more {
+            color: rgb(22, 47, 107);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-top: auto;
+            padding-bottom: 5px;
+            transition: var(--transition);
+        }
+
+        .btn-more:hover {
+            border-bottom-color: var(--accent-color);
+        }
+
+        /* Botão inferior centralizado */
+        .footer-action {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .btn-all-products {
+            display: inline-block;
+            padding: 12px 35px;
+            border: 1.5px solid #e0e0e0;
+            background-color: #1d3360;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: 0.5s var(--transition);
+        }
+
+        .btn-all-products:hover {
+            background-color: var(--accent-color);
+            color: rgb(20, 52, 156);
+            border-color: var(--accent-color);
+        }
+
+        /* Responsividade (Telas menores) */
+        @media (max-width: 1024px) {
+            .product-card {
+                flex: 0 0 calc(50% - 10px);
+                /* 2 cards por linha */
+            }
+
+            .carousel-btn.prev {
+                left: -20px;
+            }
+
+            .carousel-btn.next {
+                right: -20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .product-card {
+                flex: 0 0 85%;
+                /* Praticamente 1 card por linha com sobra */
+            }
+
+            .carousel-btn {
+                display: none;
+                /* Em celulares, o toque arrastável é melhor */
+            }
+        }
+
+        /* --- SEÇÃO DE MÉTRICAS --- */
+        .metricas-section {
+            padding: 60px 0;
+            background-color: #F4F5F7;
+            /* Fundo cinza claro para destacar o card branco */
+            width: 100%;
+        }
+
+        /* O Card Branco Principal Flutuante */
+        .metricas-card {
+            background-color: #FFFFFF;
+            border-radius: 6px;
+            box-shadow: 0 15px 45px rgba(65, 65, 65, 0.05);
+            /* Sombra suave e moderna */
+            padding: 40px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            position: relative;
+        }
+
+        /* Estrutura de cada item de número */
+        .metrica-item {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        /* Efeito sutil ao passar o mouse em computadores */
+        .metrica-item:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Estilização dos Números Grandes */
+        .metrica-numero {
+            font-size: 38px;
+            font-weight: 500;
+            color: #171a21d6;
+            /* Cor escura padrão */
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        /* O primeiro número ganha a cor azul da sua marca */
+        .metrica-item.destaque .metrica-numero {
+            color: #1d5bd6;
+        }
+
+        /* Textos descritivos */
+        .metrica-texto span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A202C;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .metrica-texto p {
+            font-size: 14px;
+            color: #4d5663;
+            margin-top: 2px;
+        }
+
+        .metrica-texto-simples {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4A5568;
+            margin-top: 8px;
+            line-height: 1.3;
+        }
+
+        /* Divisor vertical refinado */
+        .metrica-divisor {
+            width: 1px;
+            height: 70px;
+            background-color: rgba(29, 91, 214, 0.25);
+            /* Linha azulada transparente */
+        }
+
+        /* Sub-grupo que alinha os outros 3 itens lado a lado */
+        .metricas-sub-grupo {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+        }
+
+        /* --- RESPONSIVIDADE (NOTEBOOK E CELULAR) --- */
+        @media (max-width: 992px) {
+            .metricas-card {
+                padding: 35px 25px;
+            }
+
+            .metrica-numero {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Quebra o card para formato de coluna vertical no celular */
+            .metricas-card {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                gap: 35px;
+                padding: 40px 20px;
+            }
+
+            .metricas-sub-grupo {
+                flex-direction: column;
+                width: 100%;
+                gap: 35px;
+            }
+
+            .metrica-item {
+                align-items: center;
+            }
+
+            /* O divisor vira uma linha horizontal no celular separando o destaque principal */
+            .metrica-divisor {
+                width: 50px;
+                height: 2px;
+                background-color: #1d5bd6;
+                margin: 5px 0;
+            }
+        }
+
+        /* Seção Pai (Define a janela visível do banner) */
+        .cta-parallax-section {
+            position: relative;
+            width: 100%;
+            height: 45vh;
+            margin-top: 6%;
+            /* Altura ideal balanceando PC e Mobile */
+            min-height: 380px;
+            /* Impede que fique esmagado em celulares menores */
+            overflow: hidden;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Container que isola o vídeo em segundo plano */
+        .cta-parallax-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* O vídeo é maior que a seção para revelar o conteúdo escondido no scroll */
+        .cta-parallax-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 170%;
+            /* Entrega bastante espaço para o movimento vertical do parallax */
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            will-change: transform;
+        }
+
+        /* Overlay idêntico ao tom escuro da imagem image_d85439.jpg */
+        .cta-parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(23, 28, 38, 0.7);
+            /* Mescla de cinza asfalto e azul escuro */
+            z-index: 2;
+        }
+
+        /* --- CAMADA DE CONTEÚDO (FICA POR CIMA DO VÍDEO) --- */
+        .cta-content-wrapper {
+            position: relative;
+            z-index: 3;
+            /* Garante que fique acima do overlay do vídeo */
+            width: 100%;
+            text-align: center;
+            color: #FFFFFF;
+            padding: 20px 0;
+        }
+
+        .cta-internal-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Título principal idêntico ao modelo */
+        .cta-title {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            color: #FFFFFF;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Subtítulo menor e sutil */
+        .cta-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            max-width: 600px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Botão Retangular Branco do Modelo */
+        .btn-cta-solicitar {
+            display: inline-block;
+            background-color: #FFFFFF;
+            color: #112b4d;
+            /* Cor azul escura interna do texto */
+            text-decoration: none;
+            padding: 14px 45px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* Efeito moderno ao passar o mouse */
+        .btn-cta-solicitar:hover {
+            background-color: #1d5bd6;
+            color: #FFFFFF;
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(29, 91, 214, 0.4);
+        }
+
+        /* --- RESPONSIVIDADE COMPLETA --- */
+        @media (max-width: 768px) {
+            .cta-parallax-section {
+                height: auto;
+                padding: 60px 0;
+            }
+
+            .cta-title {
+                font-size: 24px;
+            }
+
+            .cta-subtitle {
+                font-size: 13px;
+                padding: 0 10px;
+            }
+
+            .btn-cta-solicitar {
+                width: 90%;
+                /* Vira um botão largo excelente para clicar com o polegar no celular */
+                padding: 16px 20px;
+            }
+        }
+
+        /* --- CONFIGURAÇÃO GERAL --- */
+        .orcamento-section {
+            padding: 80px 20px;
+            background-color: #ececec;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .orcamento-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Cabeçalho */
+        .orcamento-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .orcamento-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #070F19;
+            margin-bottom: 12px;
+        }
+
+        .orcamento-subtitle {
+            font-size: 15px;
+            color: #4A5568;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* GRID DOS CAMPOS (2 colunas perfeitas no desktop) */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Estrutura de cada grupo de campo */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Força o campo de produtos a ocupar a largura inteira */
+        .form-group.full-width {
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* Estilização das Labels */
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #070F19;
+        }
+
+        .form-group label .required {
+            color: #E53E3E;
+            /* Vermelho para o asterisco obrigatório */
+        }
+
+        /* Estilização de Inputs e Selects */
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            height: 45px;
+            padding: 0 15px;
+            border: 1px solid #CBD5E1;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #334155;
+            background-color: #FFFFFF;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        /* Efeito de foco profissional com o azul forte da sua marca */
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #1d5bd6;
+            box-shadow: 0 0 0 3px rgba(29, 91, 214, 0.15);
+        }
+
+        /* Checkbox */
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+            accent-color: #1d5bd6;
+            /* Aplica o azul forte no check */
+        }
+
+        .form-checkbox label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            line-height: 1.4;
+        }
+
+        /* Bloco de Observações e Spam */
+        .form-obs {
+            margin-bottom: 35px;
+            font-size: 14px;
+            color: #1A202C;
+            line-height: 1.6;
+        }
+
+        .form-obs strong {
+            color: #070F19;
+        }
+
+        .form-obs .spam-text {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 4px;
+        }
+
+        /* Container do Botão Alinhado à Esquerda igual ao modelo */
+        .form-submit-container {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        /* Botão com o Azul Forte solicitado */
+        .btn-enviar-orcamento {
+            background-color: #143982;
+            /* Azul forte */
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 40px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(29, 91, 214, 0.2);
+        }
+
+        /* Efeito Hover do Botão */
+        .btn-enviar-orcamento:hover {
+            background-color: #162f60;
+            /* Tom de azul ligeiramente mais escuro ao passar o mouse */
+            box-shadow: 0 6px 16px rgba(29, 91, 214, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* --- RESPONSIVIDADE COMPLETA PARA CELULARES --- */
+        @media (max-width: 768px) {
+            .orcamento-section {
+                padding: 50px 15px;
+            }
+
+            .orcamento-title {
+                font-size: 26px;
+            }
+
+            /* Transforma a grade de 2 colunas em 1 coluna única no mobile */
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .form-group.full-width {
+                margin-top: 15px;
+            }
+
+            .btn-enviar-orcamento {
+                width: 100%;
+                /* Botão ocupa a largura toda no celular para facilitar o clique */
+                text-align: center;
+                padding: 15px 20px;
+            }
+        }
+
+        /* --- CONTAINER DA SEÇÃO --- */
+        .location-section {
+            width: 100%;
+            padding-top: 60px;
+            /* Espaço interno acima do título */
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        /* --- BLOCO DE TEXTO / CABEÇALHO --- */
+        .location-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px 20px;
+            /* Margem inferior separa o texto do mapa */
+        }
+
+        .location-header h2 {
+            font-size: 2.5rem;
+            color: #153776;
+            font-weight: 300;
+            margin: 0 0 15px 0;
+        }
+
+        .location-header p {
+            font-size: 1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* --- CONTAINER DO MAPA (100% LARGURA) --- */
+        /* --- CONTAINER DO MAPA (100% LARGURA) --- */
+        .map-container {
+            width: 100%;
+            height: 200px;
+            /* Altura do mapa no Desktop */
+            line-height: 0;
+            /* Remove pequenos espaços em branco abaixo do iframe */
+            border: none;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+
+            /* 1. Aplica o filtro azul claro por padrão */
+            filter: grayscale(100%) sepia(100%) hue-rotate(190deg) saturate(150%) brightness(110%);
+
+            /* 2. Suaviza a transição de cor quando passa o mouse */
+            transition: filter 0.4s ease;
+        }
+
+        /* --- EFEITO HOVER (Quando passa o mouse por cima) --- */
+        .map-container iframe:hover {
+            /* 3. Remove todos os filtros, voltando à cor original do Google Maps */
+            filter: none;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+            .location-header h2 {
+                font-size: 2rem;
+            }
+
+            .map-container {
+                height: 350px;
+                /* Altura em telas de celular */
+            }
+        }
+
+        /* --- CONFIGURAÇÃO DO FOOTER --- */
+        .main-footer {
+            background-color: #0f2a61;
+            color: #FFFFFF;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-top {
+            padding: 70px 0 50px 0;
+        }
+
+        /* Grid Flexbox das colunas */
+        .footer-top .footer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .brand-column {
+            flex: 1.4;
+            /* Ajustado levemente para acomodar melhor o texto institucional */
+        }
+
+        .footer-logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+
+        .footer-about {
+            font-size: 14px;
+            color: #A0AEC0;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 25px;
+            margin-top: 0;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Detalhe da linha em baixo do título */
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 35px;
+            height: 2px;
+            background-color: #1d5bd6;
+        }
+
+        /* Listas de Links e Contatos */
+        .footer-links,
+        .footer-contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links li {
+            color: #A0AEC0;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links i {
+            font-size: 10px;
+            color: #1d5bd6;
+        }
+
+        /* Contatos com ícones */
+        .footer-contact-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: #A0AEC0;
+            line-height: 1.5;
+        }
+
+        .footer-contact-list li i {
+            color: #1d5bd6;
+            margin-top: 3px;
+            font-size: 15px;
+            width: 15px;
+            text-align: center;
+        }
+
+        .footer-contact-list a {
+            color: #A0AEC0;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .footer-contact-list a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Redes Sociais */
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #FFFFFF;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            background-color: #1d5bd6;
+            transform: translateY(-3px);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+            .footer-top .footer-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-top .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="#"><img src="img/log.png" alt="PAVTERRA" class="img-logo"></a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="contato.html" class="nav-link">Contato</a>
+                <a href="projetos.html" class="nav-link">Projetos</a>
+                <a href="sobre.html" class="nav-link">Sobre</a>
+                <a href="diferenciais.html" class="nav-link">Diferenciais</a>
+                <a href="" class="btn-contato-premium">Contato<i class="fa-solid fa-arrow-right-long"></i></a>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+    <!-- Botão do Telefone (Substitua pelo seu número com DDD, apenas dígitos) -->
+    <a href="https://wa.me/5549988141775" class="btn-float phone-float" title="Ligar agora">
+        <i class="fa-solid fa-phone"></i>
+    </a>
+
+    <!-- Botão do Instagram (Substitua pelo seu usuário) -->
+    <a href="https://www.instagram.com/bresola_terraplanagem/" class="btn-float instagram-float" target="_blank"
+        rel="noopener noreferrer" title="Visite nosso Instagram">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+
+    <section class="hero" id="home">
+        <video class="hero-video" autoplay loop muted playsinline>
+            <source src="videos/topo-video.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos.
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <span class="hero-tag">INFRAESTRUTURA PESADA</span>
+            <h1 class="hero-title">
+                FORJANDO O CAMINHO PARA UM AMANHÃ <span class="text-highlight">IMPARÁVEL.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Engenharia de precisão, britagem própria e pavimentação de alta performance para conectar grandes ideias
+                ao futuro.
+            </p>
+            <a href="#orcamento-cta" class="btn-hero">
+                Falar com um Especialista <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="hero-bottom-bar"></div>
+    </section>
+
+    <section class="clientes-section" id="clientes">
+        <div class="container clientes-container">
+            <div class="clientes-text">
+                <h2>Soluções comprovadas por nossos clientes.</h2>
+            </div>
+            <div class="clientes-carousel-wrapper">
+                <button class="carousel-arrow arrow-left" id="prevBtn" aria-label="Anterior">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <div class="clientes-carousel" id="carouselContainer">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-item"><img
+                                src="https://camposnovos.sc.gov.br/uploads/sites/405/2022/08/cropped-cropped-Bandeira.png"
+                                alt="Olsen"></div>
+                        <div class="carousel-item"><img
+                                src="https://celsoramos.sc.gov.br/uploads/sites/408/2021/12/celsoramos.png"
+                                alt="Polimix Concreto"></div>
+                        <div class="carousel-item"><img
+                                src="https://abdonbatista.sc.gov.br/uploads/sites/62/2022/06/cropped-cropped-Copia_de_seguranca_de_Brasao-e1654618664663.png"
+                                alt="Sol e Mar Empreendimentos">
+                        </div>
+                        <div class="carousel-item"><img
+                                src="https://ervalvelho.sc.gov.br/uploads/sites/389/2021/12/ervalvelho.png"
+                                alt="Arteris"></div>
+                        <div class="carousel-item"><img
+                                src="https://capinzal.sc.gov.br/uploads/sites/200/2023/07/Brasao-Municipio-de-Capinzal-HD.png"
+                                alt="Olsen"></div>
+                        <div class="carousel-item"><img
+                                src="https://zortea.atende.net/static/portal/img/2026/06/20/img_0400320E8B5333317CAB4BD78A80696ECB381F31.png"
+                                alt="Polimix Concreto"></div>
+                        <div class="carousel-item"><img
+                                src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Brasao_Lacerdopolis_SantaCatarina_Brasil.jpg"
+                                alt="Sol e Mar Empreendimentos">
+                        </div>
+                        <div class="carousel-item"><img
+                                src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Bras%C3%A3o_ouro.jpeg"
+                                alt="Arteris"></div>
+                    </div>
+                </div>
+                <button class="carousel-arrow arrow-right" id="nextBtn" aria-label="Próximo">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="sobre-section" id="produtos">
+        <div class="container sobre-grid">
+
+            <!-- Bloco de Texto (Esquerda) -->
+            <div class="sobre-content">
+                <span class="sobre-tag">SOBRE A BRESOLA</span>
+                <h2 class="sobre-title">
+                    Quatro décadas de tradição em pavimentação e terraplenagem.
+                </h2>
+                <p class="sobre-text">
+                    A Bresola é referência em serviços de terraplenagem e pavimentação, consolidando sua trajetória com
+                    mais de 40 anos de atuação no mercado. Com sede estratégica em Campos Novos/SC, atendemos com
+                    qualidade e eficiência diversas cidades da região.
+                </p>
+                <p class="sobre-text">
+                    Nossa estrutura conta com equipamentos de ponta e uma equipe especializada, garantindo agilidade e
+                    durabilidade em cada obra. Comprometidos com a excelência, entregamos soluções de infraestrutura que
+                    conectam pessoas e impulsionam o desenvolvimento das cidades próximas.
+                </p>
+                <a href="#orcamento-cta" class="btn-sobre">
+                    Conheça-nos <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Bloco de Mídia/Imagem (Direita) -->
+            <div class="sobre-media-wrapper">
+                <div class="sobre-card-banner">
+                    <div class="sobre-overlay-card"></div>
+                    <div class="sobre-card-content">
+                        <h3>Construindo o futuro com</h3>
+                        <div class="badge-forte">40 ANOS DE EXPERIÊNCIA.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="metricas-section">
+        <div class="container">
+            <div class="metricas-card">
+
+                <div class="metrica-item destaque">
+                    <div class="metrica-numero">+ 50</div>
+                    <div class="metrica-texto">
+                        <span>Anos</span>
+                        <p>de experiência no mercado</p>
+                    </div>
+                </div>
+
+                <div class="metrica-divisor"></div>
+
+                <div class="metricas-sub-grupo">
+
+                    <div class="metrica-item">
+                        <div class="metrica-numero">+ 10 mil</div>
+                        <div class="metrica-texto-simples">clientes atendidos</div>
+                    </div>
+
+                    <div class="metrica-item">
+                        <div class="metrica-numero">+ 350</div>
+                        <div class="metrica-texto-simples">obras entregues</div>
+                    </div>
+
+                    <div class="metrica-item">
+                        <div class="metrica-numero">+ 500 mil</div>
+                        <div class="metrica-texto-simples">tubos de concreto entregues</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <div class="container">
+            <header class="section-header">
+                <h2>Produtos</h2>
+                <p>Materiais que garantem a solidez da sua obra!</p>
+            </header>
+
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" id="prevBtn" aria-label="Produto anterior">
+                    &#10094;
+                </button>
+
+                <div class="products-carousel" id="carousel">
+                    <div class="product-card">
+                        <div class="card-image">
+                            <img src="https://construindocasas.com.br/wp-content/uploads/2021/04/O-que-e-pedra-brita-min.jpg"
+                                alt="Brita Nº 1">
+                        </div>
+                        <div class="card-content">
+                            <h3>Brita Nº 1</h3>
+                            <p>A Brita Nº 1, com granulometria entre 9,5 e 25 mm, é um dos materiais mais utilizados na
+                                construção civil. Ideal para a fabricação de colunas, vigas e lajes de concreto.</p>
+                            <a href="#" class="btn-more">SAIBA MAIS &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="card-image">
+                            <img src="https://www.ibareias.com.br/upload/conteudo/45/2010081914501045.jpg"
+                                alt="Brita Nº 2">
+                        </div>
+                        <div class="card-content">
+                            <h3>Brita Nº 2</h3>
+                            <p>A Brita Nº 2, com granulometria entre 19 e 31,5 mm, é um material essencial para obras
+                                que exigem maior espessura e resistência estrutural.</p>
+                            <a href="#" class="btn-more">SAIBA MAIS &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="card-image">
+                            <img src="https://institutominere.com.br/wp-content/uploads/2024/12/Novo_Layout2.jpg"
+                                alt="Brita Nº 3">
+                        </div>
+                        <div class="card-content">
+                            <h3>Brita Nº 3</h3>
+                            <p>A Brita Nº 3, com granulometria entre 25 a 50 mm, é amplamente utilizada em diversos
+                                projetos de infraestrutura.</p>
+                            <a href="#" class="btn-more">SAIBA MAIS &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="card-image">
+                            <img src="https://salesmateriais.com.br/wp-content/uploads/2021/09/pedra-brita-1.jpg"
+                                alt="Brita Nº 4">
+                        </div>
+                        <div class="card-content">
+                            <h3>Brita Nº 4</h3>
+                            <p>A Brita Nº 4, com granulometria entre 37,5 a 75 mm, é amplamente utilizada em obras de
+                                grande porte que exigem alta resistência e durabilidade.</p>
+                            <a href="#" class="btn-more">SAIBA MAIS &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-btn next" id="nextBtn" aria-label="Próximo produto">
+                    &#10095;
+                </button>
+            </div>
+
+            <div class="footer-action">
+                <a href="#" class="btn-all-products">NOSSOS PRODUTOS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE CHAMADA PARA AÇÃO (CTA) COM VÍDEO PARALLAX -->
+    <section class="cta-parallax-section" id="orcamento-cta">
+        <div class="cta-parallax-container">
+            <!-- Vídeo de Fundo com folga de tamanho para o efeito ocorrer -->
+            <video class="cta-parallax-video" id="ctaVideo" autoplay loop muted playsinline>
+                <source src="videos/video-baixo.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+            <!-- Filtro escuro/azul para dar leitura aos textos brancos -->
+            <div class="cta-parallax-overlay"></div>
+        </div>
+
+        <!-- Conteúdo centralizado exatamente igual ao print image_d85439.jpg -->
+        <div class="cta-content-wrapper">
+            <div class="container cta-internal-box">
+                <h2 class="cta-title">
+                    Pronto para transformar seu projeto?<br>
+                    Solicite seu orçamento agora!
+                </h2>
+                <p class="cta-subtitle">
+                    Sua obra merece o melhor! Garanta qualidade e eficiência desde o início.
+                </p>
+                <a href="https://wa.me/seu-numero" class="btn-cta-solicitar" target="_blank">
+                    SOLICITAR AGORA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="orcamento-section" id="formulario-orcamento">
+        <div class="orcamento-container">
+
+            <div class="orcamento-header">
+                <h2 class="orcamento-title">Solicite um Orçamento</h2>
+                <p class="orcamento-subtitle">Preencha o formulário abaixo e em breve enviaremos um orçamento
+                    personalizado para o seu projeto.</p>
+            </div>
+
+            <form class="orcamento-form">
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="nome">Nome <span class="required">*</span></label>
+                        <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="Seu e-mail corporativo ou pessoal"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefone">Telefone / WhatsApp <span class="required">*</span></label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo_pessoa">Pessoa Jurídica ou Física? <span class="required">*</span></label>
+                        <select id="tipo_pessoa" name="tipo_pessoa" required>
+                            <option value="" disabled selected>Selecione uma opção</option>
+                            <option value="fisica">Pessoa Física</option>
+                            <option value="juridica">Pessoa Jurídica</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cargo">Seu Cargo / Atuação <span class="required">*</span></label>
+                        <select id="cargo" name="cargo" required>
+                            <option value="" disabled selected>Selecione a sua função</option>
+                            <option value="comprador">Comprador / Suprimentos</option>
+                            <option value="engenheiro">Engenheiro / Arquiteto / Projetista</option>
+                            <option value="proprietario">Proprietário / Diretor</option>
+                            <option value="mestre_obras">Mestre de Obras / Encarregado</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cidade">Cidade da Obra <span class="required">*</span></label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Ex: Chapecó - SC" required>
+                    </div>
+
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="produto">Serviço Principal Desejado <span class="required">*</span></label>
+                    <select id="produto" name="produto" required>
+                        <option value="" disabled selected>Selecione o serviço</option>
+                        <option value="terraplenagem">Terraplenagem (Escavação, Carga e Transporte)</option>
+                        <option value="asfalto">Pavimentação Asfáltica (CBUQ)</option>
+                        <option value="paver">Pavimentação em Paver / Blocos de Concreto</option>
+                        <option value="drenagem">Drenagem Pluvial / Redes de Esgoto</option>
+                        <option value="demolicao">Demolição e Limpeza de Terreno</option>
+                        <option value="locacao">Locação de Equipamentos / Maquinário</option>
+                    </select>
+                </div>
+
+                <div class="form-checkbox">
+                    <input type="checkbox" id="consentimento" name="consentimento" required>
+                    <label for="consentimento">Eu concordo em receber comunicações comerciais da Bresola Pavimentação e
+                        Terraplenagem.</label>
+                </div>
+
+                <div class="form-obs">
+                    <p><strong>Obs:</strong> Para faturamento corporativo (PJ), o cadastro está sujeito à análise de
+                        crédito rápida.</p>
+                    <p class="spam-text">Fique tranquilo! Prometemos não utilizar suas informações de contato para
+                        enviar SPAM.</p>
+                </div>
+
+                <div class="form-submit-container">
+                    <button type="submit" class="btn-enviar-orcamento">SOLICITAR ORÇAMENTO</button>
+                </div>
+            </form>
+
+        </div>
+    </section>
+
+    <style>
+
+    </style>
+    <section class="location-section">
+        <div class="location-header">
+            <h2>Onde Estamos Localizados</h2>
+            <p>Venha nos visitar ou entre em contato para conhecer nossa estrutura. Atendemos com agilidade toda a
+                região.</p>
+        </div>
+
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!3m2!1spt-BR!2sbr!4v1782767693970!5m2!1spt-BR!2sbr!6m8!1m7!1scOFCWOJbN0qZjfTNpZu3Yg!2m2!1d-27.38945494521477!2d-51.22573050315882!3f5.247539198106304!4f2.9783737776229486!5f2.0251602998257208"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+    </section>
+    <footer class="main-footer">
+        <div class="footer-top">
+            <div class="footer-container">
+
+                <!-- Coluna Sobre a Empresa -->
+                <div class="footer-column brand-column">
+                    <h3 class="footer-logo-text">Bresola</h3>
+                    <p class="footer-about">
+                        A Bresola Terraplanagem e Pavimentação é uma empresa tradicional com mais de 42 anos de
+                        experiência no mercado de infraestrutura rodoviária e urbana, atuando no setor privado e em
+                        obras públicas em SC.
+                    </p>
+                </div>
+
+                <!-- Coluna de Serviços -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Serviços e Atuação</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-chevron-right"></i> Obras de Terraplenagem</li>
+                        <li><i class="fa-solid fa-chevron-right"></i> Pavimentação Asfáltica</li>
+                        <li><i class="fa-solid fa-chevron-right"></i> Drenagem Pluvial</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Localização -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Onde Estamos</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>
+                                Rodovia Perimetral Lateral Esquerda BR 282, nº 499<br>
+                                Bairro Ernesto Zortea<br>
+                                Campos Novos - SC<br>
+                                CEP 89620-000
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Contato -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Fale Conosco</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+554935410685">(49) 3541-0685</a>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+5549988141775">(49) 98814-1775</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE CÁLCULO DE MOVIMENTO PARALLAX (PC & CELULAR) -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const ctaSection = document.getElementById('orcamento-cta');
+            const ctaVideo = document.getElementById('ctaVideo');
+
+            if (!ctaSection || !ctaVideo) return;
+
+            function runCtaParallax() {
+                const bounding = ctaSection.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                // Ativa o cálculo apenas se o banner estiver aparecendo na tela do dispositivo
+                if (bounding.top < windowHeight && bounding.bottom > 0) {
+                    // Mapeia a rolagem do usuário com base no centro do banner
+                    const scrolledRatio = (bounding.top + bounding.height / 2) / windowHeight - 0.5;
+
+                    // Multiplicador (-40) define a velocidade e alcance do efeito de subida/descida do vídeo
+                    const parallaxY = scrolledRatio * -40;
+
+                    // Move fisicamente o vídeo sem estragar a centralização horizontal do object-fit
+                    ctaVideo.style.transform = `translate(-50%, calc(-50% + ${parallaxY}%))`;
+                }
+            }
+
+            // Evento de escuta do scroll do navegador
+            window.addEventListener('scroll', runCtaParallax, { passive: true });
+            // Executa uma vez no carregamento para posicionar o vídeo de forma correta
+            runCtaParallax();
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const carousel = document.getElementById("carousel");
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+
+            // Função para rolar o carrossel baseado na largura do card
+            const getScrollAmount = () => {
+                const card = carousel.querySelector(".product-card");
+                return card ? card.clientWidth + 20 : 300; // largura do card + o gap do CSS
+            };
+
+            // Evento clique para a direita
+            nextBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: getScrollAmount(),
+                    behavior: "smooth"
+                });
+            });
+
+            // Evento clique para a esquerda
+            prevBtn.addEventListener("click", () => {
+                carousel.scrollBy({
+                    left: -getScrollAmount(),
+                    behavior: "smooth"
+                });
+            });
+
+            // Opcional: Desabilitar/Esconder as setas quando chegar nas extremidades (Melhoria de UX)
+            carousel.addEventListener("scroll", () => {
+                const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+
+                // Trata visibilidade ou opacidade do botão esquerdo
+                if (carousel.scrollLeft <= 5) {
+                    prevBtn.style.opacity = "0.3";
+                    prevBtn.style.pointerEvents = "none";
+                } else {
+                    prevBtn.style.opacity = "1";
+                    prevBtn.style.pointerEvents = "auto";
+                }
+
+                // Trata visibilidade ou opacidade do botão direito
+                if (carousel.scrollLeft >= maxScrollLeft - 5) {
+                    nextBtn.style.opacity = "0.3";
+                    nextBtn.style.pointerEvents = "none";
+                } else {
+                    nextBtn.style.opacity = "1";
+                    nextBtn.style.pointerEvents = "auto";
+                }
+            });
+
+            // Disparar uma vez no início para checar as setas
+            carousel.dispatchEvent(new Event("scroll"));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('carouselTrack');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const container = document.getElementById('carouselContainer');
+
+            // Configurações de medidas (160px item + 50px gap)
+            const itemWidth = 210;
+            let currentIndex = 0;
+            let autoPlayTimer = null;
+
+            // Controle dos clones para o loop infinito
+            const totalItems = document.querySelectorAll('.carousel-item').length;
+            const originalItemsCount = totalItems / 2;
+
+            // Variáveis para detectar o deslizar de dedo (Touch)
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            function updateCarouselPosition(smooth = true) {
+                if (smooth) {
+                    track.style.transition = 'transform 0.4s ease-in-out';
+                } else {
+                    track.style.transition = 'none';
+                }
+                const amountToMove = -(currentIndex * itemWidth);
+                track.style.transform = `translateX(${amountToMove}px)`;
+            }
+
+            function moveNext() {
+                currentIndex++;
+                updateCarouselPosition(true);
+
+                if (currentIndex >= originalItemsCount) {
+                    setTimeout(() => {
+                        currentIndex = 0;
+                        updateCarouselPosition(false);
+                    }, 400); // Tempo batendo com a transição CSS
+                }
+            }
+
+            function movePrev() {
+                if (currentIndex <= 0) {
+                    currentIndex = originalItemsCount;
+                    updateCarouselPosition(false);
+                    setTimeout(() => {
+                        currentIndex--;
+                        updateCarouselPosition(true);
+                    }, 20);
+                } else {
+                    currentIndex--;
+                    updateCarouselPosition(true);
+                }
+            }
+
+            function startAutoPlay() {
+                stopAutoPlay();
+                autoPlayTimer = setInterval(moveNext, 3000); // Passa sozinho a cada 3s
+            }
+
+            function stopAutoPlay() {
+                if (autoPlayTimer) clearInterval(autoPlayTimer);
+            }
+
+            // Eventos dos botões (Notebook/Desktop)
+            nextBtn.addEventListener('click', () => {
+                moveNext();
+                startAutoPlay();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                movePrev();
+                startAutoPlay();
+            });
+
+            // Controle de mouse no Notebook
+            container.addEventListener('mouseenter', stopAutoPlay);
+            container.addEventListener('mouseleave', startAutoPlay);
+
+            // --- SISTEMA DE ARRASTAR COM O DEDO (TOUCH MOBILE) ---
+            container.addEventListener('touchstart', (e) => {
+                stopAutoPlay(); // Pausa o autoplay enquanto o usuário mexe
+                touchStartX = e.touches[0].clientX; // Guarda onde o dedo tocou
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                touchEndX = e.touches[0].clientX; // Atualiza a posição do dedo movendo
+            }, { passive: true });
+
+            container.addEventListener('touchend', () => {
+                const swipeDistance = touchStartX - touchEndX;
+                const minSwipeThreshold = 50; // Sensibilidade do arrasto em pixels
+
+                // Se arrastou para a esquerda significativamente, passa para o próximo
+                if (swipeDistance > minSwipeThreshold) {
+                    moveNext();
+                }
+                // Se arrastou para a direita, volta para o anterior
+                else if (swipeDistance < -minSwipeThreshold) {
+                    movePrev();
+                }
+
+                // Aguarda 1.5 segundos após o usuário terminar de mexer e liga o autoplay sozinho de novo
+                setTimeout(startAutoPlay, 1500);
+            });
+
+            // Inicializa o processo
+            startAutoPlay();
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const navMenu = document.getElementById('navMenu');
+            const bars = hamburgerBtn.querySelectorAll('.bar');
+
+            function toggleMenu() {
+                const isActive = navMenu.classList.toggle('active');
+                bars[0].style.transform = isActive ? 'translateY(9px) rotate(45deg)' : 'none';
+                bars[1].style.opacity = isActive ? '0' : '1';
+                bars[2].style.transform = isActive ? 'translateY(-9px) rotate(-45deg)' : 'none';
+            }
+
+            hamburgerBtn.addEventListener('click', toggleMenu);
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) toggleMenu();
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Link para o Font Awesome (Necessário para os ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Estilo Base Comum para Ambos os Botões */
+        .btn-float {
+            position: fixed;
+            right: 20px;
+            /* Distância do canto direito */
+            width: 60px;
+            height: 60px;
+            color: #ffffff;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 28px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Efeito ao passar o mouse */
+        .btn-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* CONFIGURAÇÃO ESPECÍFICA DO INSTAGRAM */
+        .instagram-float {
+            bottom: 20px;
+            /* Fica na base */
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        /* CONFIGURAÇÃO ESPECÍFICA DO TELEFONE */
+        .phone-float {
+            bottom: 95px;
+            /* Fica acima do Instagram (20px + 60px de altura + 15px de espaçamento) */
+            background-color: #007bff;
+            /* Um azul forte e profissional */
+        }
+
+        /* --- CONFIGURAÇÕES GLOBAIS / PALETA DE CORES --- */
+        :root {
+            /* Cores Principais */
+            --bg-dark: #070F19;
+            --accent-blue: #008DDA;
+            /* Azul de destaque principal */
+            --azul-premium: #112b4d;
+            /* Azul escuro corporativo */
+            --azul-suave: #193f65;
+
+            /* Cores de Fundo e Texto */
+            --bg-cinza: #f8f9fa;
+            /* Fundo de seções alternativas */
+            --text-main: #2d3748;
+            /* Cinza escuro para leitura confortável */
+            --text-muted: #64748b;
+            /* Cinza para subtítulos e breadcrumbs */
+            --white: #ffffff;
+
+            /* Animações e Bordas */
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--white);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .img-logo {
+            height: 80px;
+            /* Ajustado para um tamanho de logo mais elegante */
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-blue);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .btn-contato-premium {
+            background: var(--azul-premium);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-contato-premium:hover {
+            background: var(--accent-blue);
+            color: var(--white);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .hamburger .bar {
+            width: 28px;
+            height: 3px;
+            background-color: var(--bg-dark);
+            transition: var(--transition-smooth);
+        }
+
+        /* --- RESPONSIVIDADE NAVBAR --- */
+        @media (max-width: 992px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 40px;
+                padding: 40px;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+        }
+
+
+        /* CSS */
+        .cta-container {
+            background-color: #1a2b72;
+            /* Cor azul institucional */
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+            font-family: sans-serif;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background-color: #2e73cd;
+            /* Cor verde do botão */
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #1c5cb0;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .cta-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        .map-container {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            /* Mapa fica na camada de baixo */
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 98%;
+            background-color: rgba(26, 61, 100, 0.5);
+            /* Azul claro com transparência */
+            transition: opacity 0.4s ease;
+            /* Efeito suave de transição */
+            z-index: 10;
+            /* Fica acima do iframe */
+            pointer-events: none;
+            /* Permite que o clique atravesse a camada */
+        }
+
+        /* Quando passar o mouse no container, a camada desaparece */
+        .map-container:hover .map-overlay {
+            opacity: 0;
+        }
+
+        /* Opcional: Se quiser que o mapa não interaja enquanto está azul */
+        .map-container:hover iframe {
+            pointer-events: auto;
+        }
+
+        /* Container de info com margem negativa para criar o efeito "flutuante" */
+        .info-wrapper {
+            max-width: 1100px;
+            margin: -100px auto 40px auto;
+            /* Aumentei o negativo para subir mais o card */
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+            /* Garante que o card fique na camada de cima */
+        }
+
+        .office-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            /* Sombra mais profunda */
+            display: inline-block;
+            min-width: 320px;
+        }
+
+        .office-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            font-size: 18px;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: #1a2b72;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .flag {
+            width: 24px;
+        }
+
+        .office-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .office-card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn-map {
+            color: #1a2b72;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #1a2b72;
+            transition: 0.3s;
+        }
+
+        .btn-map:hover {
+            opacity: 0.7;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .office-card {
+                width: 100%;
+                padding: 25px;
+            }
+
+            .info-wrapper {
+                margin-top: -30px;
+            }
+        }
+
+        /* --- HERO SECTION CONTAINER --- */
+        .hero-banner {
+            width: 100%;
+            height: 450px;
+            /* Altura ideal e proporcional à imagem de referência */
+            /* Imagem de fundo profissional de infraestrutura/pavimentação */
+            background-image: url('img/projetos/img-paginaprincipal.jpeg');
+            background-size: cover;
+            background-position: center 35%;
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+
+        /* --- BLOCO LATERAL DE CONTEÚDO (Overlay Azul Escuro) --- */
+        .hero-content-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 45%;
+            /* Ocupa a lateral esquerda mantendo os engenheiros visíveis à direita */
+            height: 100%;
+            /* Fundo azul escuro com opacidade para efeito sofisticado de transparência */
+            background-color: rgba(15, 32, 67, 0.88);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5% 0 8%;
+            /* Alinhamento e recuo elegante */
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            /* Leve desfoque no fundo para destacar o texto */
+        }
+
+        /* --- TEXTOS --- */
+        .hero-title {
+            color: #ffffff;
+            font-size: 34px;
+            font-weight: 500;
+            line-height: 1.25;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-cta-btn:active {
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVIDADE COMPLETA --- */
+        @media (max-width: 1024px) {
+            .hero-content-box {
+                width: 55%;
+                padding: 0 4%;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                height: auto;
+                min-height: 400px;
+                display: flex;
+                margin-top: 25%;
+                flex-direction: column;
+            }
+
+            .hero-content-box {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 60px 24px;
+                background-color: rgba(15, 32, 67, 0.95);
+                /* Fundo mais denso para legibilidade em mobile */
+                backdrop-filter: none;
+            }
+
+            .hero-title {
+                font-size: 26px;
+                text-align: center;
+            }
+
+            .hero-cta-btn {
+                align-self: center;
+                /* Centraliza o botão no mobile */
+                width: 100%;
+                text-align: center;
+                max-width: 300px;
+            }
+        }
+
+        .bresola-container {
+            display: flex;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 20px;
+            align-items: flex-start;
+        }
+
+        .form-side {
+            flex: 1;
+            background: #f4f7f9;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .text-side {
+            flex: 1;
+        }
+
+        .text-side h2 {
+            color: #1a2b72;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .text-side p {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .text-side ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .text-side li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #139299;
+        }
+
+        /* Ajustes de campos */
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #13275e;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .bresola-container {
+                flex-direction: column;
+            }
+        }
+
+        /* --- CONFIGURAÇÃO DO FOOTER --- */
+        .main-footer {
+            background-color: #0f2a61;
+            color: #FFFFFF;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-top {
+            padding: 70px 0 50px 0;
+        }
+
+        /* Grid Flexbox das colunas */
+        .footer-top .footer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .brand-column {
+            flex: 1.4;
+            /* Ajustado levemente para acomodar melhor o texto institucional */
+        }
+
+        .footer-logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+
+        .footer-about {
+            font-size: 14px;
+            color: #A0AEC0;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 25px;
+            margin-top: 0;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Detalhe da linha em baixo do título */
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 35px;
+            height: 2px;
+            background-color: #1d5bd6;
+        }
+
+        /* Listas de Links e Contatos */
+        .footer-links,
+        .footer-contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links li {
+            color: #A0AEC0;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links i {
+            font-size: 10px;
+            color: #1d5bd6;
+        }
+
+        /* Contatos com ícones */
+        .footer-contact-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: #A0AEC0;
+            line-height: 1.5;
+        }
+
+        .footer-contact-list li i {
+            color: #1d5bd6;
+            margin-top: 3px;
+            font-size: 15px;
+            width: 15px;
+            text-align: center;
+        }
+
+        .footer-contact-list a {
+            color: #A0AEC0;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .footer-contact-list a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Redes Sociais */
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #FFFFFF;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            background-color: #1d5bd6;
+            transform: translateY(-3px);
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+            .footer-top .footer-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-top .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+    </style>
+
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="#"><img src="img/log.png" alt="PAVTERRA" class="img-logo"></a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="contato.html" class="nav-link">Contato</a>
+                <a href="projetos.html" class="nav-link">Projetos</a>
+                <a href="sobre.html" class="nav-link">Sobre</a>
+                <a href="diferenciais.html" class="nav-link">Diferenciais</a>
+                <a href="" class="btn-contato-premium">Contato<i class="fa-solid fa-arrow-right-long"></i></a>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+    <!-- Botão do Telefone (Substitua pelo seu número com DDD, apenas dígitos) -->
+    <a href="https://wa.me/5549988141775" class="btn-float phone-float" title="Ligar agora">
+        <i class="fa-solid fa-phone"></i>
+    </a>
+
+    <!-- Botão do Instagram (Substitua pelo seu usuário) -->
+    <a href="https://www.instagram.com/bresola_terraplanagem/" class="btn-float instagram-float" target="_blank"
+        rel="noopener noreferrer" title="Visite nosso Instagram">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+    <section class="hero-banner">
+        <div class="hero-content-box">
+            <h1 class="hero-title">
+                Construa com solidez.<br>
+                Pavimente com precisão.
+            </h1>
+        </div>
+    </section>
+    <section class="bresola-container">
+        <!-- Lado Esquerdo: Formulário -->
+        <div class="form-side">
+            <h2>Solicite um orçamento</h2>
+            <form>
+                <input type="text" placeholder="Nome completo" required>
+                <input type="email" placeholder="E-mail profissional" required>
+                <input type="tel" placeholder="Telefone / WhatsApp">
+                <select>
+                    <option>Selecione o serviço</option>
+                    <option>Terraplanagem</option>
+                    <option>Pavimentação</option>
+                </select>
+                <textarea placeholder="Conte-nos brevemente sobre seu projeto"></textarea>
+                <button type="submit" class="submit-btn">Enviar solicitação</button>
+            </form>
+        </div>
+
+        <!-- Lado Direito: Especialização -->
+        <div class="text-side">
+            <h2>Expertise Bresola</h2>
+            <p>A Bresola é referência em terraplanagem e pavimentação, entregando infraestrutura com máxima precisão
+                técnica e durabilidade.</p>
+            <ul>
+                <li><strong>Terraplanagem:</strong> Preparação de solo com tecnologia de ponta e movimentação precisa de
+                    terra.</li>
+                <li><strong>Pavimentação:</strong> Acabamento de alta qualidade em asfalto ou blocos, focado em tráfego
+                    pesado e leve.</li>
+                <li><strong>Compromisso:</strong> Execução rigorosa de cronogramas para evitar atrasos em sua obra.</li>
+            </ul>
+        </div>
+    </section>
+    <section class="office-location">
+        <!-- Mapa Full-Width com altura reduzida -->
+        <div class="map-container">
+            <!-- Camada azul que fica por cima -->
+            <div class="map-overlay"></div>
+
+            <!-- Seu iframe -->
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!3m2!1spt-BR!2sbr!4v1782862386878!5m2!1spt-BR!2sbr!6m8!1m7!1scOFCWOJbN0qZjfTNpZu3Yg!2m2!1d-27.38945494521477!2d-51.22573050315882!3f9.248653655747464!4f2.015152593932754!5f2.1390752443285033"
+                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+
+        <!-- Info Card elegante -->
+        <div class="info-wrapper">
+            <div class="office-card">
+                <div class="office-header">
+                    <span class="tag">LOCALIZAÇAO</span>
+                    <img src="https://flagicons.lipis.dev/flags/4x3/br.svg" alt="Brasil" class="flag">
+                </div>
+                <h2>Bresola de Pavimentação e Terraplanagem</h2>
+                <p>R. Augusto Bresola Filho - Nossa Senhora de Lourdes<br>
+                    Campos Novos, SC - 89620-000</p>
+                <a href="#" class="btn-map">Ver no Google Maps</a>
+            </div>
+        </div>
+    </section>
+    <!-- HTML -->
+    <section class="cta-container">
+        <div class="cta-content">
+            <h2>Pronto para conversar?</h2>
+            <p>Entre em contato com Bresola</p>
+            <a href="#" class="cta-button">
+                Agende horario→
+            </a>
+        </div>
+    </section>
+    <footer class="main-footer">
+        <div class="footer-top">
+            <div class="footer-container">
+
+                <!-- Coluna Sobre a Empresa -->
+                <div class="footer-column brand-column">
+                    <h3 class="footer-logo-text">Bresola</h3>
+                    <p class="footer-about">
+                        A Bresola Terraplanagem e Pavimentação é uma empresa tradicional com mais de 42 anos de
+                        experiência no mercado de infraestrutura rodoviária e urbana, atuando no setor privado e em
+                        obras públicas em SC.
+                    </p>
+                </div>
+
+                <!-- Coluna de Serviços -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Serviços e Atuação</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-chevron-right"></i> Obras de Terraplenagem</li>
+                        <li><i class="fa-solid fa-chevron-right"></i> Pavimentação Asfáltica</li>
+                        <li><i class="fa-solid fa-chevron-right"></i> Drenagem Pluvial</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Localização -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Onde Estamos</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>
+                                Rodovia Perimetral Lateral Esquerda BR 282, nº 499<br>
+                                Bairro Ernesto Zortea<br>
+                                Campos Novos - SC<br>
+                                CEP 89620-000
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Coluna de Contato -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Fale Conosco</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+554935410685">(49) 3541-0685</a>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:+5549988141775">(49) 98814-1775</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript (Interatividade simples)
+        document.querySelector('.cta-button').addEventListener('click', function (e) {
+            console.log("Usuário clicou para agendar uma demo!");
+            // Aqui você pode adicionar lógica de rastreamento ou redirecionamento
+        });
+    </script>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const navMenu = document.getElementById('navMenu');
+            const bars = hamburgerBtn.querySelectorAll('.bar');
+
+            function toggleMenu() {
+                const isActive = navMenu.classList.toggle('active');
+                bars[0].style.transform = isActive ? 'translateY(9px) rotate(45deg)' : 'none';
+                bars[1].style.opacity = isActive ? '0' : '1';
+                bars[2].style.transform = isActive ? 'translateY(-9px) rotate(-45deg)' : 'none';
+            }
+
+            hamburgerBtn.addEventListener('click', toggleMenu);
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) toggleMenu();
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
