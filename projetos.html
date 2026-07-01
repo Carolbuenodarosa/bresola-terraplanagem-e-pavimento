@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
     <title>Bresola Terraplanagem - Tradição e Engenharia de Infraestrutura</title>
     <!-- Link para o Font Awesome (Necessário para os ícones) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -60,7 +64,19 @@
             /* Azul escuro corporativo */
             --azul-suave: #193f65;
 
-            /* Cores de Fundo e Texto */
+            /* Paleta da Seção de Produtos/Soluções */
+            --brand-blue: #005c99;
+            /* Azul dos títulos */
+            --cyan-button: #0091bd;
+            /* Azul turquesa dos botões e detalhes */
+            --cyan-hover: #00769a;
+            /* Tom mais escuro para o hover do botão */
+            --gray-border: #e2e8f0;
+            /* Linhas sutis de divisão */
+            --gray-text: #666666;
+            /* Texto de descrição */
+
+            /* Cores de Fundo e Texto Globais */
             --bg-cinza: #f8f9fa;
             /* Fundo de seções alternativas */
             --text-main: #2d3748;
@@ -121,7 +137,6 @@
 
         .img-logo {
             height: 80px;
-            /* Ajustado para um tamanho de logo mais elegante */
             width: auto;
             display: block;
             object-fit: contain;
@@ -201,7 +216,378 @@
             transition: var(--transition-smooth);
         }
 
-        /* --- RESPONSIVIDADE NAVBAR --- */
+        /* --- SEÇÃO PRODUTOS E CARROSSEL (ESTILO UNIFICADO) --- */
+        .produtos-section {
+            max-width: 1200px;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 40px 20px;
+            margin: 50px auto;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        .projetos-expansao-section {
+            margin-top: 3.5rem;
+        }
+
+        .produtos-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 35px;
+            border-bottom: 1px solid var(--gray-border);
+            padding-bottom: 20px;
+            position: relative;
+        }
+
+        .produtos-title-container {
+            position: relative;
+        }
+
+        .produtos-title {
+            font-size: 28px;
+            color: var(--brand-blue);
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .produtos-title-container::after {
+            content: '';
+            position: absolute;
+            bottom: -21px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--cyan-button);
+        }
+
+        .produtos-nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .produtos-nav-btn {
+            background-color: #ffffff;
+            border: 1px solid var(--gray-border);
+            color: var(--cyan-button);
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .produtos-nav-btn:hover {
+            background-color: var(--cyan-button);
+            color: #ffffff;
+            border-color: var(--cyan-button);
+        }
+
+        .produtos-carousel-container {
+            overflow: hidden;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .produtos-grid {
+            display: flex;
+            gap: 24px;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+
+        .produtos-card {
+            flex: 0 0 calc(25% - 18px);
+            min-width: 250px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            border: 1px solid var(--gray-border);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .produtos-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .produtos-card-image-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .produtos-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .produtos-card:hover .produtos-card-img {
+            transform: scale(1.06);
+        }
+
+        .produtos-card-content {
+            padding: 20px 15px;
+            flex-grow: 1;
+        }
+
+        .produtos-card-title {
+            font-size: 16px;
+            color: var(--brand-blue);
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            line-height: 1.3;
+        }
+
+        .produtos-card-excerpt {
+            font-size: 13.5px;
+            color: var(--gray-text);
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .produtos-btn-vejamais {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--azul-suave);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 14px 0;
+            width: 100%;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: auto;
+        }
+
+        .produtos-btn-vejamais:hover {
+            background-color: var(--cyan-hover);
+        }
+
+        .arrow-icon {
+            font-size: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .produtos-btn-vejamais:hover .arrow-icon {
+            transform: translateX(4px);
+        }
+
+        /* --- DEPOIMENTOS & GALERIA --- */
+        .logo-empresa img {
+            max-height: 85px;
+            object-fit: contain;
+        }
+
+        .texto-depoimento {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            font-weight: 300;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        .indicadores {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-start;
+        }
+
+        .ponto {
+            width: 8px;
+            height: 8px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .ponto.ativo {
+            background-color: #555;
+        }
+
+        .imagem-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .imagem-container img {
+            width: 100%;
+            max-width: 550px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .gallery-section {
+            width: 100%;
+            padding: 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- HERO SECTION CONTAINER --- */
+        .hero-banner {
+            width: 100%;
+            height: 450px;
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-content-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 45%;
+            height: 100%;
+            background-color: rgba(15, 32, 67, 0.88);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5% 0 8%;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-title {
+            color: #ffffff;
+            font-size: 34px;
+            font-weight: 500;
+            line-height: 1.25;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .bresola-philosophy {
+            padding: 80px 20px;
+            background-color: #1c2a57;
+            text-align: center;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .main-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e6e6e6;
+            line-height: 1.4;
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: #1ec7d3;
+        }
+
+        .closing-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1982b3;
+            margin-top: 10px;
+        }
+
+        .logos-section {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+        .section-title {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 40px;
+        }
+
+        .logos-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .logos-grid img {
+            max-width: 150px;
+            height: auto;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .logos-grid img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* ==========================================================================
+       MEDIA QUERIES (RESPONSIVIDADE GERAL UNIFICADA)
+       ========================================================================== */
+        @media (max-width: 1024px) {
+            .produtos-card {
+                flex: 0 0 calc(33.333% - 16px);
+            }
+
+            .hero-content-box {
+                width: 55%;
+                padding: 0 4%;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+        }
+
         @media (max-width: 992px) {
             .hamburger {
                 display: flex;
@@ -227,475 +613,39 @@
             }
         }
 
-        /* --- SEÇÕES INSTITUCIONAIS --- */
-        .breadcrumb {
-            background-color: var(--white);
-            padding: 15px 12%;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            border-bottom: 1px solid #edf2f7;
-            margin-top: 90px;
-            /* Evita que a navbar fixa cubra o conteúdo */
-        }
-
-        .breadcrumb a {
-            color: var(--accent-blue);
-            text-decoration: none;
-        }
-
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-
-        .section-proposito {
-            margin-bottom: 60px;
-            margin-top: 10%;
-        }
-
-        .titulo-secao {
-            color: var(--azul-suave);
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            position: relative;
-            margin-top: -20px;
-        }
-
-        .subtitulo-italico {
-            font-style: italic;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        .texto-corrido {
-            color: var(--text-main);
-            font-size: 1rem;
-            text-align: justify;
-            margin-top: 20px;
-            /* Corrigido de 10% para um espaçamento real e limpo */
-        }
-
-        /* --- SEÇÃO MISSÃO --- */
-        .section-missao {
-            background-color: var(--bg-cinza);
-            display: flex;
-            align-items: stretch;
-            border-radius: var(--border-radius-md);
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            margin-bottom: 60px;
-        }
-
-        .missao-conteudo {
-            flex: 1;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .missao-conteudo .titulo-secao::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-blue);
-            margin-top: 10px;
-        }
-
-        .missao-imagem-container {
-            flex: 1;
-            position: relative;
-            min-height: 350px;
-            overflow: hidden;
-        }
-
-        /* Recorte angular elegante na imagem */
-        .missao-imagem-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -1px;
-            width: 0;
-            height: 0;
-            border-top: 400px solid var(--bg-cinza);
-            border-right: 60px solid transparent;
-            z-index: 2;
-        }
-
-        .missao-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* --- LINHAS ALTERNADAS (ROW) --- */
-        .section-row {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-            margin-top: 50px;
-            background-color: var(--white);
-            padding: 20px 0;
-        }
-
-        .row-reverse {
-            flex-direction: row-reverse;
-        }
-
-        .row-conteudo {
-            flex: 1.2;
-        }
-
-        .row-conteudo .titulo-secao::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-blue);
-            margin-top: 10px;
-            margin-bottom: 25px;
-        }
-
-        .row-imagem-container {
-            flex: 1;
-            overflow: hidden;
-            border-radius: var(--border-radius-md);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-        }
-
-        .row-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .row-imagem-container:hover .row-img {
-            transform: scale(1.03);
-        }
-
-        /* --- SEÇÃO ESTRUTURA DE ESTATÍSTICAS (STATS) --- */
-        .stats-container {
-            max-width: 1240px;
-            margin: 60px auto;
-            padding: 0 20px;
-        }
-
-        .stats-title {
-            text-align: center;
-            color: var(--azul-suave);
-            margin-bottom: 40px;
-            font-size: 2rem;
-            font-weight: 600;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .stat-card {
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            min-height: 140px;
-            border-radius: var(--border-radius-md);
-            transition: var(--transition-smooth);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            filter: brightness(1.05);
-            cursor: pointer;
-        }
-
-        .stat-card svg {
-            width: 32px;
-            height: 32px;
-            fill: var(--white);
-            margin-bottom: 12px;
-            opacity: 0.9;
-        }
-
-        .stat-card strong {
-            display: block;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            letter-spacing: -0.5px;
-        }
-
-        .stat-card p {
-            margin: 0;
-            font-size: 0.9rem;
-            opacity: 0.85;
-            font-weight: 500;
-        }
-
-        @media (max-width: 600px) {
-            .stats-container {
-                margin: 40px auto;
-                padding: 0 15px;
+        @media (max-width: 768px) {
+            .produtos-card {
+                flex: 0 0 calc(50% - 12px);
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .stats-title {
-                font-size: 1.25rem;
-                /* Título um pouco menor para não quebrar linha */
-                margin-bottom: 20px;
-                padding: 0 10px;
-            }
-
-            .stat-card {
-                padding: 25px 15px;
-                min-height: auto;
-                flex-direction: row;
-                /* Alinha ícone e texto lado a lado no mobile */
-                justify-content: flex-start;
-                gap: 15px;
-                text-align: left;
-            }
-
-            .stat-card svg {
-                width: 28px;
-                height: 28px;
-                margin-bottom: 0;
-                /* Remove margem inferior já que mudou para row */
-                flex-shrink: 0;
-                /* Garante que o ícone não amasse */
-            }
-
-            .stat-card strong {
+            .produtos-title {
                 font-size: 1.5rem;
-                margin-bottom: 0;
             }
 
-            .stat-card p {
-                font-size: 0.85rem;
-            }
-        }
-
-        /* Cores dos Cards (Gradiente harmônico de azul) */
-        .bg-1 {
-            background-color: #0c4a6e;
-        }
-
-        .bg-2 {
-            background-color: #0284c7;
-        }
-
-        .bg-3 {
-            background-color: #0ea5e9;
-        }
-
-        .bg-4 {
-            background-color: #38bdf8;
-        }
-
-        /* --- SEÇÃO CLIENTES --- */
-        .nossos-clientes {
-            width: 100%;
-            max-width: 1240px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .container-logos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 50px;
-            margin-top: 40px;
-        }
-
-        .logo-item {
-            flex: 0 1 160px;
-        }
-
-        .logo-item img {
-            max-width: 100%;
-            height: auto;
-            filter: grayscale(100%) opacity(60%);
-            transition: var(--transition-smooth);
-        }
-
-        .logo-item img:hover {
-            filter: grayscale(0%) opacity(100%);
-        }
-
-        /* --- RESPONSIVIDADE GERAL --- */
-        @media (max-width: 768px) {
-            .container {
-                padding: 40px 15px;
-            }
-
-            .section-missao,
-            .section-row {
+            .depoimentos-container {
                 flex-direction: column;
-                gap: 30px;
+                text-align: center;
             }
 
-            .missao-imagem-container::before {
-                display: none;
-                /* Remove corte angular em mobile */
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                /* Grid 2x2 */
+            .autor-header {
+                flex-direction: column;
+                align-items: center;
                 gap: 15px;
             }
 
-            .titulo-secao {
-                font-size: 1.6rem;
-            }
-        }
-
-        .about-banner {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            /* Altura do banner */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* Substitua pelo link da sua imagem de fundo */
-            background: url('linha-guarani.png') no-repeat center center/cover;
-        }
-
-        /* Película escura para dar contraste ao título */
-        .about-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(7, 15, 25, 0.65);
-            /* Azul escuro/preto com opacidade */
-            z-index: 1;
-        }
-
-        /* Estilo do Título */
-        .about-banner h1 {
-            position: relative;
-            z-index: 2;
-            margin-top: 3%;
-            color: #ffffff;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            font-size: 3.5rem;
-            /* Tamanho grande e imponente */
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* Linha minimalista abaixo do título (opcional, dá um toque premium) */
-        .about-banner h1::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 4px;
-            background-color: #008DDA;
-            /* Cor azul de destaque */
-            margin: 10px auto 0 auto;
-            border-radius: 2px;
-        }
-
-        /* Responsividade para telas menores */
-        @media (max-width: 768px) {
-            .about-banner {
-                height: 250px;
+            .texto-depoimento {
+                text-align: center;
             }
 
-            .about-banner h1 {
-                font-size: 2.5rem;
-                margin-top: 25%;
-            }
-        }
-
-        /* --- HERO SECTION CONTAINER --- */
-        .hero-banner {
-            width: 100%;
-            height: 450px;
-            /* Altura ideal e proporcional à imagem de referência */
-            /* Imagem de fundo profissional de infraestrutura/pavimentação */
-            background-image: url('sobre-topo.png');
-            background-size: cover;
-            background-position: center 35%;
-            position: relative;
-            display: block;
-            overflow: hidden;
-        }
-
-        /* --- BLOCO LATERAL DE CONTEÚDO (Overlay Azul Escuro) --- */
-        .hero-content-box {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 45%;
-            /* Ocupa a lateral esquerda mantendo os engenheiros visíveis à direita */
-            height: 100%;
-            /* Fundo azul escuro com opacidade para efeito sofisticado de transparência */
-            background-color: rgba(15, 32, 67, 0.88);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 5% 0 8%;
-            /* Alinhamento e recuo elegante */
-            z-index: 2;
-            backdrop-filter: blur(4px);
-            /* Leve desfoque no fundo para destacar o texto */
-        }
-
-        /* --- TEXTOS --- */
-        .hero-title {
-            color: #ffffff;
-            font-size: 34px;
-            font-weight: 500;
-            line-height: 1.25;
-            margin-bottom: 24px;
-            letter-spacing: -0.5px;
-        }
-
-        .hero-cta-btn:active {
-            transform: translateY(0);
-        }
-
-        /* --- RESPONSIVIDADE COMPLETA --- */
-        @media (max-width: 1024px) {
-            .hero-content-box {
-                width: 55%;
-                padding: 0 4%;
+            .indicadores {
+                justify-content: center;
             }
 
-            .hero-title {
-                font-size: 28px;
-            }
-        }
-
-        @media (max-width: 768px) {
             .hero-banner {
                 height: auto;
                 min-height: 400px;
                 display: flex;
-                margin-top: 35%;
+                margin-top: 25%;
                 flex-direction: column;
             }
 
@@ -705,7 +655,6 @@
                 height: auto;
                 padding: 60px 24px;
                 background-color: rgba(15, 32, 67, 0.95);
-                /* Fundo mais denso para legibilidade em mobile */
                 backdrop-filter: none;
             }
 
@@ -714,162 +663,44 @@
                 text-align: center;
             }
 
-            .hero-cta-btn {
-                align-self: center;
-                /* Centraliza o botão no mobile */
-                width: 100%;
-                text-align: center;
-                max-width: 300px;
+            .main-text {
+                font-size: 1.4rem;
+            }
+
+            .closing-text {
+                font-size: 1.2rem;
+            }
+
+            .logos-grid {
+                gap: 20px;
+            }
+
+            .logos-grid img {
+                max-width: 100px;
             }
         }
 
-        .p-f-section {
-            padding: 60px 20px;
-            background-color: #ffffff;
-            font-family: sans-serif;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header-content {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .header-content h1 {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            max-width: 800px;
-            margin: 0 auto 10px;
-        }
-
-        .header-content h1 strong {
-            color: #3b82f6;
-        }
-
-        .content-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .chart-container {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .chart-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .text-cta {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .text-cta h3 {
-            color: #3b82f6;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .text-cta h2 {
-            font-size: 2rem;
-            margin: 15px 0;
-        }
-
-        /* --- SEÇÃO ESTRUTURA DE ESTATÍSTICAS (STATS) --- */
-        .stats-container {
-            max-width: 1240px;
-            margin: 60px auto;
-            padding: 0 20px;
-            width: 100%;
-            /* Garante que respeite o espaço disponível */
-            box-sizing: border-box;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .stat-card {
-            padding: 30px 15px;
-            /* Ajuste leve no padding lateral */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            min-height: 140px;
-            border-radius: var(--border-radius-md);
-            transition: var(--transition-smooth);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        /* --- RESPONSIVIDADE --- */
-
-        /* Tablets */
-        @media (max-width: 1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Celulares */
-        @media (max-width: 600px) {
-            .stats-container {
-                margin: 40px auto;
-                /* Reduz margem vertical */
+        @media (max-width: 480px) {
+            .produtos-grid {
+                gap: 16px;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-                /* 1 coluna */
-                gap: 15px;
+            .produtos-card {
+                flex: 0 0 100%;
             }
 
-            .stats-title {
-                font-size: 1.5rem;
-                margin-bottom: 25px;
-                padding: 0 10px;
-            }
-
-            .stat-card {
-                padding: 25px 20px;
-                min-height: auto;
-            }
-
-            .stat-card strong {
-                font-size: 1.5rem;
-                /* Fonte ligeiramente menor para telas pequenas */
-            }
-        }
-
-        /* Ajuste fino para telas muito pequenas (< 400px) */
-        @media (max-width: 400px) {
-            .stats-title {
-                font-size: 1.3rem;
-            }
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .content-wrapper {
+            .produtos-header {
                 flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
             }
 
-            .header-content h1 {
-                font-size: 1.8rem;
+            .produtos-title {
+                margin-top: -25px;
+            }
+
+            .produtos-nav-buttons {
+                margin-top: 30px;
             }
         }
 
@@ -1025,28 +856,21 @@
             transform: translateY(-3px);
         }
 
-        /* 3. Ajuste de Responsividade */
+        /* --- RESPONSIVIDADE --- */
         @media (max-width: 992px) {
             .footer-top .footer-container {
+                display: grid;
                 grid-template-columns: 1fr 1fr;
+                gap: 40px;
             }
         }
 
-        /* ADICIONE ESTA REGRA PARA CELULARES */
-        @media (max-width: 768px) {
+        @media (max-width: 576px) {
             .footer-top .footer-container {
                 grid-template-columns: 1fr;
-                /* Em telas pequenas, colunas empilhadas */
-                gap: 30px;
-            }
-
-            .brand-column,
-            .footer-column {
-                flex: 100%;
-                min-width: 100%;
+                gap: 35px;
             }
         }
-        
     </style>
 </head>
 
@@ -1081,175 +905,252 @@
         rel="noopener noreferrer" title="Visite nosso Instagram">
         <i class="fa-brands fa-instagram"></i>
     </a>
-
-
     <section class="hero-banner">
+        <!-- Vídeo de fundo -->
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="video-baixo.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos.
+        </video>
+
         <div class="hero-content-box">
             <h1 class="hero-title">
                 Construa com solidez.<br>
-                Bresola Sobre
+                Pavimente com precisão.
             </h1>
         </div>
     </section>
-    <section class="bresola-section">
-        <div class="container">
-            <!-- Cabeçalho -->
-            <header class="header-content">
-                <h1>Especialistas em <strong>Terraplanagem e Pavimentação</strong></h1>
-                <p class="subtitle">Atendendo Campos Novos/SC e toda a região com excelência e infraestrutura de ponta.
-                </p>
-            </header>
+    <div class="overlay"></div>
 
-            <!-- Conteúdo -->
-            <div class="content-wrapper">
-                <div class="image-container">
-                    <!-- Mantendo a referência solicitada -->
-                    <img src="capturas.png" alt="Serviços da Bresola Terraplanagem" class="responsive-img">
+
+    <main class="rv-main">
+        <!-- PRIMEIRA SEÇÃO: PROJETOS EM SANTA CATARINA -->
+        <section class="produtos-section">
+            <div class="produtos-header">
+                <div class="produtos-title-container">
+                    <h2 class="produtos-title">Conheça nossos projetos em Santa Catarina</h2>
                 </div>
-
-                <div class="text-cta">
-                    <h3>SOLUÇÕES EM INFRAESTRUTURA</h3>
-                    <h2><strong>Transformando terrenos</strong> em grandes projetos.</h2>
-                    <p>Na Bresola, combinamos tecnologia e experiência para garantir a melhor base para sua obra.
-                        Oferecemos serviços de terraplanagem precisa e pavimentação de alta durabilidade para Campos
-                        Novos e cidades próximas.</p>
-                    <ul class="features">
-                        <li>✓ Terraplanagem completa</li>
-                        <li>✓ Pavimentação asfáltica e poliédrica</li>
-                        <li>✓ Atendimento regionalizado</li>
-                    </ul>
+                <div class="produtos-nav-buttons">
+                    <button class="produtos-nav-btn" id="prodPrevBtn" aria-label="Anterior">&#10094;</button>
+                    <button class="produtos-nav-btn" id="prodNextBtn" aria-label="Próximo">&#10095;</button>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Conteúdo Principal -->
-    <main class="container">
 
-        <!-- Bloco: Nosso Propósito -->
-        <section class="section-proposito">
-            <h2 class="titulo-secao">Nosso propósito</h2>
-            <p class="subtitulo-italico">
-                Desenvolver infraestrutura e soluções precisas em engenharia, transformando o solo na base para o
-                progresso regional.
-            </p>
-            <p class="texto-corrido">
-                Criar obras de qualidade, com rigor técnico e eficiência, é o compromisso da Bresolla Pavimentação e
-                Terraplenagem. Com uma trajetória sólida de mais de 30 anos no mercado, consolidamo-nos como uma empresa
-                de médio a grande porte que investe continuamente na modernização de sua frota, em tecnologia e na
-                capacitação de sua equipe. Nossa paixão é entregar resultados que superam as expectativas, honrando
-                nossa história em Campos Novos e em toda a região de Santa Catarina.
-            </p>
+            <div class="produtos-carousel-container">
+                <div class="produtos-grid" id="produtosGrid">
+
+                    <!-- Card 1: Pavimentação Rodoviária -->
+                    <article class="produtos-card">
+                        <div class="produtos-card-image-wrapper">
+                            <img src="projeto1.jpeg" alt="Obras de Pavimentação em Rodovias de SC"
+                                class="produtos-card-img">
+                        </div>
+                        <div class="produtos-card-content">
+                            <h3 class="produtos-card-title">Malha Rodoviária</h3>
+                            <p class="produtos-card-excerpt">Implantação de pavimentos asfálticos de alta resistência em
+                                rodovias catarinenses</p>
+                        </div>
+                        <a href="diferenciais.html" class="produtos-btn-vejamais">
+                            VEJA MAIS <span class="arrow-icon">&#10095;</span>
+                        </a>
+                    </article>
+
+                    <!-- Card 2: Restauração e Recapeamento -->
+                    <article class="produtos-card">
+                        <div class="produtos-card-image-wrapper">
+                            <img src="projeto2.png" alt="Restauração e Recapeamento Asfáltico em SC"
+                                class="produtos-card-img">
+                        </div>
+                        <div class="produtos-card-content">
+                            <h3 class="produtos-card-title">Recapeamento e Fresagem</h3>
+                            <p class="produtos-card-excerpt">Restauração de vias degradadas com aplicação de nova capa
+                                asfáltica (CBUQ)</p>
+                        </div>
+                        <a href="diferenciais.html" class="produtos-btn-vejamais">
+                            VEJA MAIS <span class="arrow-icon">&#10095;</span>
+                        </a>
+                    </article>
+
+                    <!-- Card 3: Pavimento Intertravado e Urbano -->
+                    <article class="produtos-card">
+                        <div class="produtos-card-image-wrapper">
+                            <img src="projeto3.png" alt="Pavimentação Urbana e Intertravados em SC"
+                                class="produtos-card-img">
+                        </div>
+                        <div class="produtos-card-content">
+                            <h3 class="produtos-card-title">Pavimentação Urbana</h3>
+                            <p class="produtos-card-excerpt">Projetos de pavimentação em calçamentos, vias públicas e
+                                pisos intertravados</p>
+                        </div>
+                        <a href="diferenciais.html" class="produtos-btn-vejamais">
+                            VEJA MAIS <span class="arrow-icon">&#10095;</span>
+                        </a>
+                    </article>
+
+                    <!-- Card 4: Engenharia e Controle de Qualidade -->
+                    <article class="produtos-card">
+                        <div class="produtos-card-image-wrapper">
+                            <img src="projeto4.png" alt="Controle de Qualidade em Pavimentação"
+                                class="produtos-card-img">
+                        </div>
+                        <div class="produtos-card-content">
+                            <h3 class="produtos-card-title">Tecnologia de Pavimentos</h3>
+                            <p class="produtos-card-excerpt">Ensaios de compactação, controle tecnológico de asfalto e
+                                ensaios de solo</p>
+                        </div>
+                        <a href="diferenciais.html" class="produtos-btn-vejamais">
+                            VEJA MAIS <span class="arrow-icon">&#10095;</span>
+                        </a>
+                    </article>
+
+                </div>
+            </div>
         </section>
 
-        <!-- Bloco: Missão -->
-        <section class="section-missao">
-            <div class="missao-conteudo">
-                <h2 class="titulo-secao">Missão</h2>
-                <p class="subtitulo-italico">
-                    Promover o crescimento sustentável, mantendo a tradição, a proximidade e a confiança que nos
-                    trouxeram até aqui.
-                </p>
-                <p class="texto-corrido">
-                    A Bresolla busca expandir suas atividades de forma segura e constante. Nosso objetivo é manter uma
-                    estrutura ágil e robusta, que une a força de uma empresa madura à flexibilidade necessária para
-                    atender às demandas complexas de pavimentação e terraplenagem. Oferecemos o equilíbrio perfeito: a
-                    solidez e a experiência de mais de três décadas de mercado, aliadas a soluções modernas e sempre
-                    prontas para o que o cliente precisa.
-                </p>
+        <section class="produtos-section projetos-expansao-section">
+            <div class="produtos-header">
+                <div class="produtos-title-container">
+                    <h2 class="produtos-title">Próximos Projetos e Expansão</h2>
+                </div>
+                <div class="produtos-nav-buttons">
+                    <button class="produtos-nav-btn" id="prodPrevBtn2" aria-label="Anterior">&#10094;</button>
+                    <button class="produtos-nav-btn" id="prodNextBtn2" aria-label="Próximo">&#10095;</button>
+                </div>
             </div>
 
-            <div class="missao-imagem-container">
-                <img src="quemsomos.jpeg" alt="Equipe Bresolla" class="missao-img">
-            </div>
-        </section>
+            <div class="produtos-carousel-container">
+                <div class="produtos-grid" id="produtosGrid2">
 
-        <!-- Bloco: Pessoas e Infraestrutura -->
-        <section class="section-row">
-            <div class="row-imagem-container">
-                <img src="sobre.png" alt="Pessoas e Infraestrutura - Bresolla" class="row-img">
-            </div>
-            <div class="row-conteudo">
-                <h2 class="titulo-secao">Pessoas e Infraestrutura</h2>
-                <p class="texto-corrido">
-                    Valorizamos o desenvolvimento profissional de nossa equipe e o respeito às comunidades onde atuamos.
-                    Na Bresolla Pavimentação e Terraplenagem, aliamos nossa capacidade operacional de médio-grande porte
-                    ao cuidado rigoroso com o meio ambiente. Investimos em técnicas responsáveis e soluções de
-                    engenharia que garantem a máxima durabilidade, segurança e eficiência em cada projeto.
-                </p>
+                    <!-- Card 1: Terraplenagem -->
+                    <article class="produtos-card">
+                        <div class="produtos-card-image-wrapper">
+                            <video autoplay loop muted playsinline class="produtos-card-img">
+                                <source src="rell1.mp4" type="video/mp4">
+                                Seu navegador não suporta vídeos.
+                            </video>
+                        </div>
+                        <div class="produtos-card-content">
+                            <h3 class="produtos-card-title">Movimentação de Terra</h3>
+                            <p class="produtos-card-excerpt">Serviços de corte, aterro, nivelamento e preparação do solo
+                            </p>
+                        </div>
+                        <a href="#" class="produtos-btn-vejamais">
+                            VEJA MAIS <span class="arrow-icon">&#10095;</span>
+                        </a>
+                    </article>
+
+                    <!-- Card 2: Pavimentação Asfáltica -->
+                    <article class="produtos-card">
+                        <div class="produtos-card-image-wrapper">
+                            <video autoplay loop muted playsinline class="produtos-card-img">
+                                <source src="rell2.mp4" type="video/mp4">
+                                Seu navegador não suporta vídeos.
+                            </video>
+                        </div>
+                        <div class="produtos-card-content">
+                            <h3 class="produtos-card-title">Pavimentação Asfáltica</h3>
+                            <p class="produtos-card-excerpt">Aplicação de CBUQ e revestimentos de alta durabilidade</p>
+                        </div>
+                        <a href="#" class="produtos-btn-vejamais">
+                            VEJA MAIS <span class="arrow-icon">&#10095;</span>
+                        </a>
+                    </article>
+
+                    <!-- Card 3: Infraestrutura Urbana -->
+                    <article class="produtos-card">
+                        <div class="produtos-card-image-wrapper">
+                            <video autoplay loop muted playsinline class="produtos-card-img">
+                                <source src="rell3.mp4" type="video/mp4">
+                                Seu navegador não suporta vídeos.
+                            </video>
+                        </div>
+                        <div class="produtos-card-content">
+                            <h3 class="produtos-card-title">Vias Urbanas e Rodovias</h3>
+                            <p class="produtos-card-excerpt">Projetos de duplicação, restauração e expansão de malhas
+                                viárias</p>
+                        </div>
+                        <a href="#" class="produtos-btn-vejamais">
+                            VEJA MAIS <span class="arrow-icon">&#10095;</span>
+                        </a>
+                    </article>
+
+                    <!-- Card 4: Drenagem -->
+                    <article class="produtos-card">
+                        <div class="produtos-card-image-wrapper">
+                            <video autoplay loop muted playsinline class="produtos-card-img">
+                                <source src="video-baixo.mp4" type="video/mp4">
+                                Seu navegador não suporta vídeos.
+                            </video>
+                        </div>
+                        <div class="produtos-card-content">
+                            <h3 class="produtos-card-title">Drenagem Pluvial</h3>
+                            <p class="produtos-card-excerpt">Implantação de bueiros, galerias e escoamento protetivo
+                                para pistas</p>
+                        </div>
+                        <a href="#" class="produtos-btn-vejamais">
+                            VEJA MAIS <span class="arrow-icon">&#10095;</span>
+                        </a>
+                    </article>
+
+                    <!-- Card 5: Pavimentação Rígida -->
+                    <article class="produtos-card">
+                        <div class="produtos-card-image-wrapper">
+                            <video autoplay loop muted playsinline class="produtos-card-img">
+                                <source src="rell3.mp4" type="video/mp4">
+                                Seu navegador não suporta vídeos.
+                            </video>
+                        </div>
+                        <div class="produtos-card-content">
+                            <h3 class="produtos-card-title">Pavimentos Especiais</h3>
+                            <p class="produtos-card-excerpt">Soluções em piso intertravado e pavimentação rígida de
+                                concreto</p>
+                        </div>
+                        <a href="#" class="produtos-btn-vejamais">
+                            VEJA MAIS <span class="arrow-icon">&#10095;</span>
+                        </a>
+                    </article>
+
+                </div>
             </div>
         </section>
     </main>
-
-    <!-- Bloco: Trajetória e Diferenciais -->
-    <div class="stats-container">
-        <h2 class="stats-title">Nossa Trajetória e Diferenciais</h2>
-
-        <div class="stats-grid">
-            <div class="stat-card bg-1">
-                <svg viewBox="0 0 24 24">
-                    <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z" />
-                </svg>
-                <strong>+ de 30 anos</strong>
-                <p>de experiência no mercado</p>
-            </div>
-            <div class="stat-card bg-2">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                </svg>
-                <strong>Forte atuação</strong>
-                <p>em Santa Catarina e região</p>
-            </div>
-            <div class="stat-card bg-3">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 16H4V8h16v12z" />
-                </svg>
-                <strong>Grandes projetos</strong>
-                <p>entregues com qualidade</p>
-            </div>
-            <div class="stat-card bg-4">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A.991.991 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18s.41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9zM12 4.15l-6.4 3.6L12 11.39l6.4-3.6L12 4.15zM5 16.03l6 3.37v-6.75L5 9.28v6.75zm8 6.75l6-3.37V9.28l-6 3.37v6.75z" />
-                </svg>
-                <strong>Frota moderna</strong>
-                <p>com maquinário de ponta</p>
-            </div>
-            <div class="stat-card bg-1">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                </svg>
-                <strong>Rigor técnico</strong>
-                <p>e máxima segurança operacional</p>
-            </div>
-            <div class="stat-card bg-2">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                </svg>
-                <strong>Equipe qualificada</strong>
-                <p>e constantemente treinada</p>
-            </div>
-            <div class="stat-card bg-3">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-                <strong>Compromisso real</strong>
-                <p>com a satisfação do cliente</p>
-            </div>
-            <div class="stat-card bg-4">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 2v20M2 12h20" />
-                </svg>
-                <strong>Soluções ágeis</strong>
-                <p>atendimento sob medida</p>
-            </div>
+    <section class="logos-section">
+        <h2 class="section-title">Cidades(SC) que escolheram nossos serviços</h2>
+        <div class="logos-grid">
+            <!-- Substitua os 'src' pelos arquivos das suas logos -->
+            <img src="https://camposnovos.sc.gov.br/uploads/sites/405/2022/08/cropped-cropped-Bandeira.png"
+                alt="Empresa 1">
+            <img src="https://celsoramos.sc.gov.br/uploads/sites/408/2021/12/celsoramos.png" alt="Empresa 2">
+            <img src="https://abdonbatista.sc.gov.br/uploads/sites/62/2022/06/cropped-cropped-Copia_de_seguranca_de_Brasao-e1654618664663.png"
+                alt="Empresa 3">
+            <img src="https://ervalvelho.sc.gov.br/uploads/sites/389/2021/12/ervalvelho.png" alt="Empresa 4">
+            <img src="https://capinzal.sc.gov.br/uploads/sites/200/2023/07/Brasao-Municipio-de-Capinzal-HD.png"
+                alt="Empresa 5">
+            <img src="https://zortea.atende.net/static/portal/img/2026/06/20/img_0400320E8B5333317CAB4BD78A80696ECB381F31.png"
+                alt="Empresa 6">
         </div>
-    </div>
-
+    </section>
+    <section class="bresola-philosophy">
+        <div class="container">
+            <p class="main-text">
+                Projetos de infraestrutura que resistem ao tempo não podem ser
+                planejados em escritórios isolados. Exigem
+                <span class="highlight">solos reais</span>, condições reais de terreno e
+                presença constante na frente de obra.
+            </p>
+            <p class="closing-text">
+                A metodologia Bresola nasceu para garantir essa excelência.
+            </p>
+        </div>
+    </section>
+    <section class="gallery-section">
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="projeto7.png" alt="Operação"></div>
+            <div class="gallery-item"><img src="pavii.png" alt="Fábrica"></div>
+            <div class="gallery-item"><img src="projeto3.png" alt="Manutenção"></div>
+            <div class="gallery-item"><img src="projeto2.png" alt="Infraestrutura"></div>
+            <div class="gallery-item"><img src="img-luz.jpeg" alt="Tecnologia"></div>
+        </div>
+    </section>
     <footer class="main-footer">
         <div class="footer-top">
             <div class="footer-container">
@@ -1309,8 +1210,7 @@
         </div>
     </footer>
 
-
-    <script defer>
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const hamburgerBtn = document.getElementById('hamburgerBtn');
             const navMenu = document.getElementById('navMenu');
@@ -1332,6 +1232,145 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // 1. FUNÇÃO DO CARROSSEL (Garante o funcionamento dos slides)
+            function configurarCarrossel(idGrid, idPrevBtn, idNextBtn) {
+                const produtosGrid = document.getElementById(idGrid);
+                const prodPrevBtn = document.getElementById(idPrevBtn);
+                const prodNextBtn = document.getElementById(idNextBtn);
+
+                if (produtosGrid && prodPrevBtn && prodNextBtn) {
+                    let currentIndex = 0;
+
+                    function getItemsInView() {
+                        const width = window.innerWidth;
+                        if (width <= 480) return 1;
+                        if (width <= 768) return 2;
+                        if (width <= 1024) return 3;
+                        return 4;
+                    }
+
+                    function moveCarousel() {
+                        const totalItems = produtosGrid.children.length;
+                        const itemsInView = getItemsInView();
+                        const maxIndex = totalItems - itemsInView;
+
+                        if (currentIndex > maxIndex) currentIndex = maxIndex;
+                        if (currentIndex < 0) currentIndex = 0;
+
+                        if (produtosGrid.children.length === 0) return;
+
+                        const itemWidth = produtosGrid.children[0].getBoundingClientRect().width;
+                        const gap = parseInt(window.getComputedStyle(produtosGrid).gap) || 0;
+
+                        const amountToMove = currentIndex * (itemWidth + gap);
+                        produtosGrid.style.transform = `translateX(-${amountToMove}px)`;
+                    }
+
+                    prodNextBtn.addEventListener("click", function () {
+                        const totalItems = produtosGrid.children.length;
+                        const itemsInView = getItemsInView();
+                        if (currentIndex < totalItems - itemsInView) {
+                            currentIndex++;
+                            moveCarousel();
+                        }
+                    });
+
+                    prodPrevBtn.addEventListener("click", function () {
+                        if (currentIndex > 0) {
+                            currentIndex--;
+                            moveCarousel();
+                        }
+                    });
+
+                    window.addEventListener("resize", moveCarousel);
+                }
+            }
+
+            // Ativa os carrosséis
+            configurarCarrossel("produtosGrid", "prodPrevBtn", "prodNextBtn");
+            configurarCarrossel("produtosGrid2", "prodPrevBtn2", "prodNextBtn2");
+
+
+            // 2. LÓGICA DA SEÇÃO SANTA CATARINA (Redireciona para diferenciais.html)
+            // Aplica apenas na seção que NÃO possui a classe de expansão
+            document.querySelectorAll('.produtos-section:not(.projetos-expansao-section) .produtos-card').forEach(card => {
+                card.style.cursor = 'pointer';
+
+                card.addEventListener('click', (e) => {
+                    // Se o clique foi fora do botão, força ir para diferenciais.html
+                    if (!e.target.closest('.produtos-btn-vejamais')) {
+                        window.location.href = 'diferenciais.html';
+                    }
+                });
+            });
+
+
+            // 3. LÓGICA DA SEÇÃO DE VÍDEOS (Tela Cheia nos Próximos Projetos)
+            // Aplica estritamente aos cards dentro da seção de expansão
+            document.querySelectorAll('.projetos-expansao-section .produtos-card').forEach(card => {
+                const btnVejaMais = card.querySelector('.produtos-btn-vejamais');
+                const video = card.querySelector('.produtos-card-img');
+
+                if (btnVejaMais && video) {
+                    btnVejaMais.addEventListener('click', (e) => {
+                        e.preventDefault(); // Impede o link '#' de atualizar a página
+
+                        // Ativa o modo tela cheia de forma compatível com navegadores
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.webkitRequestFullscreen) { /* Safari / iOS */
+                            video.webkitRequestFullscreen();
+                        } else if (video.msRequestFullscreen) { /* IE11 */
+                            video.msRequestFullscreen();
+                        }
+
+                        video.muted = false;
+                        video.play();
+                    });
+                }
+            });
+
+        });
+
+        // 4. RETORNO DO MUDO AO SAIR DA TELA CHEIA (Global)
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                document.querySelectorAll('.projetos-expansao-section .produtos-card-img').forEach(video => {
+                    video.muted = true;
+                });
+            }
+        });
+
+        // 5. LÓGICA DA GALERIA EM TELA CHEIA (Imagens genéricas fora do carrossel)
+        document.querySelectorAll('.gallery-item img').forEach(image => {
+            image.onclick = () => {
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                modal.style.zIndex = '1000';
+
+                const img = document.createElement('img');
+                img.src = image.src;
+                img.style.maxWidth = '90%';
+
+                modal.onclick = () => modal.remove();
+                modal.appendChild(img);
+                document.body.appendChild(modal);
+            }
+        });
+    </script>
+</body>
+
 </body>
 
 </html>
