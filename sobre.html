@@ -1025,16 +1025,27 @@
             transform: translateY(-3px);
         }
 
-        /* --- RESPONSIVIDADE --- */
+        /* 3. Ajuste de Responsividade */
         @media (max-width: 992px) {
             .footer-top .footer-container {
-                display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 40px;
             }
         }
 
-       
+        /* ADICIONE ESTA REGRA PARA CELULARES */
+        @media (max-width: 768px) {
+            .footer-top .footer-container {
+                grid-template-columns: 1fr;
+                /* Em telas pequenas, colunas empilhadas */
+                gap: 30px;
+            }
+
+            .brand-column,
+            .footer-column {
+                flex: 100%;
+                min-width: 100%;
+            }
+        }
     </style>
 </head>
 
