@@ -275,115 +275,6 @@
             }
         }
 
-        .map-container {
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            /* Mapa fica na camada de baixo */
-        }
-
-        .map-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 98%;
-            background-color: rgba(26, 61, 100, 0.5);
-            /* Azul claro com transparência */
-            transition: opacity 0.4s ease;
-            /* Efeito suave de transição */
-            z-index: 10;
-            /* Fica acima do iframe */
-            pointer-events: none;
-            /* Permite que o clique atravesse a camada */
-        }
-
-        /* Quando passar o mouse no container, a camada desaparece */
-        .map-container:hover .map-overlay {
-            opacity: 0;
-        }
-
-        /* Opcional: Se quiser que o mapa não interaja enquanto está azul */
-        .map-container:hover iframe {
-            pointer-events: auto;
-        }
-
-        /* Container de info com margem negativa para criar o efeito "flutuante" */
-        .info-wrapper {
-            max-width: 1100px;
-            margin: -100px auto 40px auto;
-            /* Aumentei o negativo para subir mais o card */
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-            /* Garante que o card fique na camada de cima */
-        }
-
-        .office-card {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            /* Sombra mais profunda */
-            display: inline-block;
-            min-width: 320px;
-        }
-
-        .office-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .tag {
-            font-size: 18px;
-            letter-spacing: 1.5px;
-            font-weight: 600;
-            color: #1a2b72;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .flag {
-            width: 24px;
-        }
-
-        .office-card h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: #111;
-        }
-
-        .office-card p {
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        .btn-map {
-            color: #1a2b72;
-            font-weight: 600;
-            text-decoration: none;
-            border-bottom: 2px solid #1a2b72;
-            transition: 0.3s;
-        }
-
-        .btn-map:hover {
-            opacity: 0.7;
-        }
-
-        /* Responsividade */
-        @media (max-width: 600px) {
-            .office-card {
-                width: 100%;
-                padding: 25px;
-            }
-
-            .info-wrapper {
-                margin-top: -30px;
-            }
-        }
-
         /* --- HERO SECTION CONTAINER --- */
         .hero-banner {
             width: 100%;
@@ -558,6 +449,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             width: 100%;
             box-sizing: border-box;
+            margin-top: 5%;
         }
 
         .footer-container {
@@ -585,7 +477,6 @@
 
         .brand-column {
             flex: 1.4;
-            /* Ajustado levemente para acomodar melhor o texto institucional */
         }
 
         .footer-logo-text {
@@ -615,7 +506,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* Detalhe da linha em baixo do título */
+
         .footer-title::after {
             content: '';
             position: absolute;
@@ -626,7 +517,6 @@
             background-color: #1d5bd6;
         }
 
-        /* Listas de Links e Contatos */
         .footer-links,
         .footer-contact-list {
             list-style: none;
@@ -703,7 +593,6 @@
             transform: translateY(-3px);
         }
 
-        /* --- RESPONSIVIDADE --- */
         @media (max-width: 992px) {
             .footer-top .footer-container {
                 display: grid;
@@ -716,6 +605,120 @@
             .footer-top .footer-container {
                 grid-template-columns: 1fr;
                 gap: 35px;
+            }
+        }
+
+        .centralizar-conteudo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .wrapper-secao {
+            max-width: 900px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            margin: 0 auto;
+        }
+
+        .wrapper-secao.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .titulo-secao {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #333333;
+            font-size: 50px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .titulo-secao i {
+            color: #003366;
+        }
+
+        /* Container Principal */
+        .container-contato {
+            display: flex;
+            background-color: #ededed;
+            width: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            padding: 40px;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .lado-iframe {
+            flex: 1;
+            min-width: 300px;
+            height: 250px;
+        }
+
+        .lado-iframe iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 2px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .lado-texto {
+            flex: 1;
+            color: #666666;
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        .lado-texto h3 {
+            color: #444444;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .lado-texto p {
+            margin-bottom: 8px;
+        }
+
+        .lado-texto a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .lado-texto a:hover {
+            text-decoration: underline;
+        }
+
+        .telefone {
+            color: #d65c00;
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .titulo-secao {
+                font-size: 1.5rem;
+                justify-content: center;
+
+            }
+
+            .container-contato {
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+            }
+
+            .lado-iframe {
+                width: 100%;
+                height: 200px;
             }
         }
     </style>
@@ -791,42 +794,51 @@
             </ul>
         </div>
     </section>
-    <section class="office-location">
-        <!-- Mapa Full-Width com altura reduzida -->
-        <div class="map-container">
-            <!-- Camada azul que fica por cima -->
-            <div class="map-overlay"></div>
 
-            <!-- Seu iframe -->
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!3m2!1spt-BR!2sbr!4v1782862386878!5m2!1spt-BR!2sbr!6m8!1m7!1scOFCWOJbN0qZjfTNpZu3Yg!2m2!1d-27.38945494521477!2d-51.22573050315882!3f9.248653655747464!4f2.015152593932754!5f2.1390752443285033"
-                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
+    <div class="wrapper-secao" id="secaoContato">
 
-        <!-- Info Card elegante -->
-        <div class="info-wrapper">
-            <div class="office-card">
-                <div class="office-header">
-                    <span class="tag">LOCALIZAÇAO</span>
-                    <img src="https://flagicons.lipis.dev/flags/4x3/br.svg" alt="Brasil" class="flag">
-                </div>
-                <h2>Bresola de Pavimentação e Terraplanagem</h2>
-                <p>R. Augusto Bresola Filho - Nossa Senhora de Lourdes<br>
-                    Campos Novos, SC - 89620-000</p>
-                <a href="#" class="btn-map">Ver no Google Maps</a>
+        <h2 class="titulo-secao">
+            <i class="fa-solid fa-location-dot"></i> Onde estamos localizados
+        </h2>
+
+        <div class="container-contato">
+
+            <div class="lado-iframe">
+                <!-- Novo iframe do Street View/Mapa fornecido -->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!3m2!1spt-BR!2sbr!4v1782862386878!5m2!1spt-BR!2sbr!6m8!1m7!1scOFCWOJbN0qZjfTNpZu3Yg!2m2!1d-27.38945494521477!2d-51.22573050315882!3f9.248653655747464!4f2.015152593932754!5f2.1390752443285033"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
+
+            <div class="lado-texto">
+                <h3>Bresola de Pavimentação e Terraplanagem</h3>
+                <p>R. Augusto Bresola Filho - Nossa Senhora de Lourdes</p>
+                <p>CEP 89620-000 – Campos Novos – SC</p>
+
+                <!-- Link para abrir a rota direto no Google Maps -->
+                <p style="margin-top: 15px;">
+                    <a href="https://maps.google.com/?q=R.+Augusto+Bresola+Filho,+Nossa+Senhora+de+Lourdes,+Campos+Novos+-+SC,+89620-000"
+                        target="_blank" style="font-weight: bold;">
+                        🖈 Ver no Google Maps
+                    </a>
+                </p>
+
+                <!-- Caso tenha e-mail e telefone da Bresola, basta substituir abaixo: -->
+                <!-- <p>Email: <a href="mailto:contato@exemplo.com.br">contato@exemplo.com.br</a></p> -->
+                <!-- <div class="telefone">Fone: (49) XXXX-XXXX</div> -->
+            </div>
+
         </div>
-    </section>
-    <!-- HTML -->
-    <section class="cta-container">
-        <div class="cta-content">
-            <h2>Pronto para conversar?</h2>
-            <p>Entre em contato com Bresola</p>
-            <a href="#" class="cta-button">
-                Agende horario→
-            </a>
-        </div>
-    </section>
+    </div>
+
+    <script>
+        // JavaScript simples para ativar uma animação de entrada suave ao carregar a página
+        document.addEventListener("DOMContentLoaded", function () {
+            const secao = document.getElementById("secaoContato");
+            secao.classList.add("visivel");
+        });
+    </script>
     <footer class="main-footer">
         <div class="footer-top">
             <div class="footer-container">
