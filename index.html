@@ -361,6 +361,7 @@
         }
 
         /* --- CARROSSEL DE CLIENTES (CORRIGIDO PARA CELULAR) --- */
+        /* --- CARROSSEL DE CLIENTES (CORRIGIDO PARA SERVIÇOS E CELULAR) --- */
         .clientes-section {
             background-color: #F4F5F7;
             padding: 60px 0;
@@ -407,33 +408,40 @@
         }
 
         .carousel-arrow:hover {
-            color: var(--accent-blue);
+            color: var(--accent-blue, #003366);
         }
 
         .clientes-carousel {
             width: 100%;
             overflow: hidden;
-            /* TRAVA a rolagem nativa do celular para o JS assumir */
             position: relative;
+            padding: 15px 0;
+            /* Espaço extra para não cortar sombra ou efeito hover dos blocos */
         }
 
         .carousel-track {
             display: flex;
-            align-items: center;
-            gap: 50px;
+            align-items: stretch;
+            /* Garante que todos os cards fiquem com a mesma altura horizontal */
+            gap: 25px;
+            /* Ajustado o espaço entre os blocos de serviço */
             width: max-content;
-            /* Transição suave usando transformações de hardware */
             transition: transform 0.5s ease-in-out;
         }
 
+        /* MODIFICADO: Adaptado de imagem antiga para container de ícones flexível */
         .carousel-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 160px;
-            height: 60px;
+            width: 170px;
+            /* Largura um pouco maior para acomodar os textos de pavimentação */
+            height: auto;
+            /* Altura automática para o texto respirar e quebrar linhas */
             user-select: none;
             flex-shrink: 0;
+            box-sizing: border-box;
         }
 
         .carousel-item img {
@@ -1607,6 +1615,43 @@
                 gap: 35px;
             }
         }
+
+        /* Estilização da caixinha que segura o ícone e o texto do serviço */
+        .servico-icon-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Efeito de hover elegante ao passar o mouse */
+        .servico-icon-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo do ícone em si (Tamanho e cor azul escuro correspondente) */
+        .servico-icon-box i {
+            font-size: 3rem;
+            color: #0b2c4c;
+            /* Tom azul escuro profissional */
+            margin-bottom: 12px;
+        }
+
+        /* Texto descritivo abaixo do ícone */
+        .servico-icon-box span {
+            font-size: 1rem;
+            color: #444444;
+            font-weight: bold;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -1668,7 +1713,8 @@
     <section class="clientes-section" id="clientes">
         <div class="container clientes-container">
             <div class="clientes-text">
-                <h2>Soluções comprovadas por nossos clientes.</h2>
+                <h2>Trabalho de qualidade
+                    Comprovada.</h2>
             </div>
             <div class="clientes-carousel-wrapper">
                 <button class="carousel-arrow arrow-left" id="prevBtn" aria-label="Anterior">
@@ -1676,32 +1722,63 @@
                 </button>
                 <div class="clientes-carousel" id="carouselContainer">
                     <div class="carousel-track" id="carouselTrack">
-                        <div class="carousel-item"><img
-                                src="https://camposnovos.sc.gov.br/uploads/sites/405/2022/08/cropped-cropped-Bandeira.png"
-                                alt="Olsen"></div>
-                        <div class="carousel-item"><img
-                                src="https://celsoramos.sc.gov.br/uploads/sites/408/2021/12/celsoramos.png"
-                                alt="Polimix Concreto"></div>
-                        <div class="carousel-item"><img
-                                src="https://abdonbatista.sc.gov.br/uploads/sites/62/2022/06/cropped-cropped-Copia_de_seguranca_de_Brasao-e1654618664663.png"
-                                alt="Sol e Mar Empreendimentos">
+
+                        <div class="carousel-item">
+                            <div class="servico-icon-box">
+                                <i class="fa-solid fa-road"></i>
+                                <span>Pavimentação</span>
+                            </div>
                         </div>
-                        <div class="carousel-item"><img
-                                src="https://ervalvelho.sc.gov.br/uploads/sites/389/2021/12/ervalvelho.png"
-                                alt="Arteris"></div>
-                        <div class="carousel-item"><img
-                                src="https://capinzal.sc.gov.br/uploads/sites/200/2023/07/Brasao-Municipio-de-Capinzal-HD.png"
-                                alt="Olsen"></div>
-                        <div class="carousel-item"><img
-                                src="https://zortea.atende.net/static/portal/img/2026/06/20/img_0400320E8B5333317CAB4BD78A80696ECB381F31.png"
-                                alt="Polimix Concreto"></div>
-                        <div class="carousel-item"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Brasao_Lacerdopolis_SantaCatarina_Brasil.jpg"
-                                alt="Sol e Mar Empreendimentos">
+
+                        <div class="carousel-item">
+                            <div class="servico-icon-box">
+                                <i class="fa-solid fa-trowel-bricks"></i>
+                                <span>Terraplanagem</span>
+                            </div>
                         </div>
-                        <div class="carousel-item"><img
-                                src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Bras%C3%A3o_ouro.jpeg"
-                                alt="Arteris"></div>
+
+                        <div class="carousel-item">
+                            <div class="servico-icon-box">
+                                <i class="fa-solid fa-city"></i>
+                                <span>Infraestrutura</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="servico-icon-box">
+                                <i class="fa-solid fa-helmet-safety"></i>
+                                <span>Segurança & Engenharia</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="servico-icon-box">
+                                <i class="fa-solid fa-truck-pickup"></i>
+                                <span>Logística de Cargas</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="servico-icon-box">
+                                <i class="fa-solid fa-mound"></i>
+                                <span>Movimentação de Solo</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="servico-icon-box">
+                                <i class="fa-solid fa-faucet-drip"></i>
+                                <span>Drenagem Pluvial</span>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="servico-icon-box">
+                                <i class="fa-solid fa-compass-drafting"></i>
+                                <span>Topografia & Projetos</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <button class="carousel-arrow arrow-right" id="nextBtn" aria-label="Próximo">
@@ -1740,7 +1817,7 @@
                     <div class="sobre-overlay-card"></div>
                     <div class="sobre-card-content">
                         <h3>Construindo o futuro com</h3>
-                        <div class="badge-forte">40 ANOS DE EXPERIÊNCIA.</div>
+                        <div class="badge-forte">Mais de 40 ANOS DE EXPERIÊNCIA.</div>
                     </div>
                 </div>
             </div>
@@ -1752,7 +1829,7 @@
             <div class="metricas-card">
 
                 <div class="metrica-item destaque">
-                    <div class="metrica-numero">+ 50</div>
+                    <div class="metrica-numero">+ 40</div>
                     <div class="metrica-texto">
                         <span>Anos</span>
                         <p>de experiência no mercado</p>
